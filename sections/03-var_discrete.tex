@@ -1,0 +1,542 @@
+\section{Variabili aleatorie discrete}
+\begin{defin}
+	In uno spazio di probabilità $(\Omega, \A, p)$, una variabile aleatoria (o casuale) è una funzione\footnote{in verità, la funzione deve soddisfare il criterio: $\{\omega \mid X(\omega)\leq r\}\in\A\quad\forall r\in\R$} $X:\Omega\to \R$.
+	L'immagine di una variabile aleatoria si dice supporto e si indica con $D_X$. Ogni elemento del supporto, cioè l'immagine per $X$ di un elemento di $\Omega$, si dice specificazione. Una specificazione generica di $X$ si indica tipicamente con $x$.
+\end{defin}
+
+
+\subsection{Definizioni}
+\begin{defin}
+	Una variabile aleatoria è discreta se e solo se il suo supporto è numerabile.
+\end{defin}
+
+Per esempio, se $\Omega$ è l'insieme di esiti del lancio di due dadi, $X$ può essere definito come la somma degli esiti dei due dadi. Le immagini di $X$ non sono equiprobabili. Se per $X$ si sceglie il valore del primo dado, le immagini sono equiprobabili.
+
+\begin{defin}[funzione indicatrice]
+	Dato $A\subseteq D$ (dove $D$ è un qualunque insieme), la funzione indicatrice (o caratteristica) di $A$ è la funzione $I:D\to \{0,1\}$ che associa a un elemento di $D$ il numero $1$ se l'elemento appartiene ad $A$, o $0$ altrimenti:
+	\begin{equation*}
+		I_A(x) := \begin{cases}
+			1 \qquad x\in A \\
+			0 \qquad x\notin A
+		\end{cases}
+	\end{equation*}
+\end{defin}
+
+\begin{defin}[funzione indicatrice di un evento] \label{def:findiceven}
+	La funzione indicatrice di un evento $A$ è la variabile aleatoria che ha specificazione $1$ se l'evento $A$ si verifica e $0$ se l'evento non si verifica.
+\end{defin}
+
+
+
+\subsection{Funzione di ripartizione}
+\begin{defin}[funzione di ripartizione] \label{def:fripar}
+	Data una variabile aleatoria $X$, la funzione di ripartizione $F_X:\R\to[0,1]$ (o di distribuzione cumulativa) è la funzione che associa a un valore $x\in\R$ la probabilità che l'esito di $X$ ne sia minore o uguale:
+	\begin{equation*}
+		\forall x\in\R\quad F_X(x):=P(X\leq x)
+	\end{equation*}
+\end{defin}
+
+% TODO: spiegare le formule seguenti
+\begin{gather*}
+	a\leq b \\
+	x\sim F_X \\[1ex]
+	\{x\leq b\}=\{x\leq a\}\cup\{a<x\leq b\} \\[1ex]
+	P(x\leq b)=P(x\leq a)+P(a<x\leq b) \\[1ex]
+	F_X(b)=F_X(a)+P(a<x\leq b) \\[1ex]
+	P(a<x\leq b)=F_X(b)-F_X(a)
+\end{gather*}
+
+La funzione di ripartizione si annulla quandunque l'input è minore della minima specificazione.
+
+
+
+
+\subsection{Funzione di massa di probabilità}
+\begin{defin}[funzione di massa di probabilità] \label{def:fmassaprob}
+	Data una variabile aleatoria discreta $X$, la funzione di massa di probabilità $p_X:\R\to[0,1]$ è la funzione che associa a un valore $x\in\R$ la probabilità che l'esito di $X$ sia uguale a $x$:
+	\begin{equation*}
+		\forall x \in\R\quad p_X(x)= P(x=X)
+	\end{equation*}
+\end{defin}
+
+La somma delle immagini della funzione di massa di probabilità per tutte le specificazioni di $X$ è ovviamente uguale a $1$:
+\begin{equation} \label{eq:sommamassa}
+	\sum_i p_X (x_i) = 1
+\end{equation}
+
+La funzione di massa di probabilità di $X$ si annulla nei punti di $\R$ non appartenenti al supporto di $X$.
+
+\begin{prop}
+	Per le variabili aleatorie discrete vale la seguente relazione tra la funzione di ripartizione e la funzione di massa di probabilità:
+	\begin{equation*}
+		F_X(x)=\sum_{a\leq x} p_X(a)
+	\end{equation*}
+	con $a\in D_X$.
+\end{prop}
+\begin{proof}
+	\begin{align*}
+		F_X(x) & = P(X\leq x)                             \bc{definizione \ref{def:fripar}}     \\
+		       & = P\left(\bigcup_{a\leq x}\{X=a\}\right)                                       \\
+		       & = \sum_{a\leq x} P(X=a)                  \bc{unione di eventi disgiunti}       \\
+		       & = \sum_{a\leq x} p_X(a)                  \bc{definizione \ref{def:fmassaprob}}
+	\end{align*}
+\end{proof}
+
+
+
+\subsection{Valore atteso}
+Il valore atteso di una variabile aleatoria $X$ è un indice di centralità delle specificazioni della variabile aleatoria.
+\begin{defin}[valore atteso] \label{def:valatt}
+	Data una variabile aleatoria discreta $X$, il valore atteso di $X$ è la media delle specificazioni di $X$ pesata con le rispettive probabilità:
+	\begin{equation*}
+		\ev{X}=\sum_i x_i P(X=x_i)
+	\end{equation*}
+	Talvolta si usa anche la notazione $\mu=\mu_X=\ev{X}$.
+\end{defin}
+\noindent
+In generale, non è detto che la sommatoria che definisce il valore atteso converga.
+
+\begin{prop} \label{prop:indvalatt}
+	Il valore atteso della funzione indicatrice di un evento è uguale alla probabilità dell'evento:
+	\begin{equation*}
+		\ev{I_A}=P(A)
+	\end{equation*}
+\end{prop}
+\begin{proof}
+	Applicando la definizione \ref{def:valatt} di valore atteso e la \ref{def:findiceven} di funzione indicatrice di un evento:
+	\begin{equation*}
+		\ev{I_A}=1*P(A)+0*(1-P(A))=P(A)
+	\end{equation*}
+\end{proof}
+
+\subsubsection{Linearità del valore atteso}
+\begin{prop}
+	Il valore atteso di una variabile aleatoria discreta $X$ è lineare rispetto a una trasformazione lineare $ax+b$ applicata alle specificazioni $x_i$ di $X$:
+	\begin{equation*}
+		D_Y = \{ax_i+b \mid x_i\in D_X\} \qquad\Rightarrow\qquad \ev{Y}=a\ev{X}+b
+	\end{equation*}
+	Si scrive anche $Y=aX+b$.
+\end{prop}
+\begin{proof}
+	Poiché le probabilità per le rispettive specificazioni rimangono invariate:
+	\begin{align*}
+		\ev{Y} & = \sum_i (a x_i + b) P(X=x_i)                                                    \\
+		       & = a\sum_i x_i P(X=x_i) + b\sum_i P(X=x_i)                                        \\
+		       & = a\underbrace{\sum_i x_i p_X(x_i)}_{\ev{x}} + b\underbrace{\sum_i p_X(x_i)}_{1} \\
+		       & = a \ev{x} + b \bc{\eqref{eq:sommamassa} e definizione \ref{def:valatt}}
+	\end{align*}
+\end{proof}
+
+
+
+\subsection{Varianza di una variabile aleatoria}
+\begin{defin}[varianza di una variabile aleatoria]
+	La varianza di una variabile aleatoria $X$ è definita come segue:
+	\begin{equation*}
+		\var(X) = \sigma^2_X := \ev{(X-\ev{X})^2}
+	\end{equation*}
+\end{defin}
+
+\begin{defin}[deviazione standard di una variabile aleatoria]
+	La deviazione standard di una variabile aleatoria $X$ è così definita:
+	\begin{equation*}
+		\sigma(X)=\sqrt{\var(X)}
+	\end{equation*}
+\end{defin}
+
+
+\subsubsection{Proprietà della varianza}
+\begin{prop} \label{prop:varalt}
+	La varianza di $X$ può essere espressa equivalentemente come la differenza tra il valore atteso del quadrato di $X$ e il valore atteso al quadrato di $X$:
+	\begin{equation} \label{eq:varalt}
+		\var(X) = \ev{x^2}- \ev{x}^2
+	\end{equation}
+\end{prop}
+\begin{proof}
+	\begin{align*}
+		\var(X) & = \ev{X^2-2\mu X+\mu^2}         \bc{sviluppando il quadrato}     \\
+		        & = \ev{X^2}-2\mu \ev{X}+\mu^2    \bc{linearità del valore atteso} \\
+		        & = \ev{X^2}-2\mu^2+\mu^2         \bc{definizione di $\mu$}        \\
+		        & = \ev{x^2}- \ev{x}^2
+	\end{align*}
+\end{proof}
+
+\begin{prop}
+	La varianza della funzione indicatrice di un evento $A$ è uguale al prodotto delle probabilità di $A$ e del suo complementare:
+	\begin{equation*}
+		\var(I_A) = P(A)P(\bar A)
+	\end{equation*}
+\end{prop}
+\begin{proof}
+	\begin{align*}
+		\var(I_A) & = \ev{I_A^2}- \ev{I_A}^2                             \\
+		          & = \ev{I_A}- \ev{I_A}^2   \bc{idempotenza di $I_A$}   \\
+		          & = \ev{I_A}(1- \ev{I_A})  \bc{proprietà distributiva} \\
+		          & = P(A)P(\bar A)
+	\end{align*}
+\end{proof}
+
+\begin{prop}
+	In una trasformazione lineare su una variabile aleatoria $X$, una traslazione non influisce sulla varianza; al contrario, una dilatazione si traduce in una dilatazione quadratica.
+	\begin{equation*}
+		\var(aX+b)=a^2\var(X)
+	\end{equation*}
+\end{prop}
+\begin{proof}
+	\begin{align*}
+		\var(aX+b) & = \ev{(aX+b-\ev{aX+b})^2} \\
+		           & = \ev{(aX+b-a\ev{X}-b)^2} \\
+		           & = \ev{(a(X-\ev{X}))^2}    \\
+		           & = a^2~\ev{(X-\ev{X})^2}   \\
+		           & = a^2 \var(X)             \\
+	\end{align*}
+\end{proof}
+
+
+
+\subsection{Funzione di ripartizione congiunta}
+\begin{defin}
+	Data una coppia di variabili aleatorie $X, Y$, la funzione di ripartizione congiunta $F_X:\R\times\R\to[0,1]$ (o di distribuzione cumulativa congiunta) è la funzione che associa a una coppia di valori reali per $x$ e $y$ la probabilità che l'esito di $X$ sia minore o uguale a $x$ e l'esito di $Y$ sia minore o uguale a $y$:
+	\begin{equation*}
+		\forall x,y\in\R\qquad F_{X,Y}(x,y):=P(X\leq x, Y\leq y) \\
+	\end{equation*}
+\end{defin}
+
+Il limite per $y$ che tende a $+\infty$ della funzione di ripartizione congiunta di $X$ e $Y$ è uguale alla funzione di ripartizione di $X$. In questo caso si dice che $F_X(x)$ è la distribuzione marginale rispetto a $X$:
+\begin{equation} \label{eq:distrmargin}
+	\lim_{y\to+\infty}F_{X,Y}(x, y)=\lim_{y\to+\infty}P(X\leq x,Y\leq y)=\lim_{y\to+\infty}P(X\leq x)=F_X(x)
+\end{equation}
+Analogo vale, ovviamente, per $x\to+\infty$.
+
+
+
+\subsection{Funzione di massa di probabilità congiunta}
+\begin{defin}
+	Data una coppia di variabili aleatorie $X, Y$, la funzione di massa di probabilità congiunta $p_{X,Y}:\R\times\R\to[0,1]$ è la funzione che associa a una coppia di valori reali per $x$ e $y$ la probabilità che l'esito di $X$ sia uguale a $x$ e quello di $Y$ sia uguale a $y$:
+	\begin{equation*}
+		p_{X,Y}(x,y)=P(X=x,Y=y)
+	\end{equation*}
+\end{defin}
+
+Analogamente a quanto visto nella \eqref{eq:distrmargin} con il limite, la somma per tutte le specificazioni $y_j$ di $Y$ di $p_{X,Y}(x,y_j)$ è uguale alla massa di probabilità marginale rispetto a $X$:
+\begin{equation} \label{eq:massamargin}
+	\sum_j p_{X,Y}(x,y_j) = p_X(x)
+\end{equation}
+
+
+
+
+\subsection{Indipendenza}
+\begin{defin}
+	Variabili aleatorie $X$ e $Y$ sono indipendenti se e solo se
+	\begin{equation*}
+		\forall A,B\subseteq\R\qquad P(X\in A, Y\in B)=P(X\in A)P(Y\in B)
+	\end{equation*}
+\end{defin}
+
+La definizione è equivalente alla seguente proprietà della funzione di massa di probabilità congiunta:
+\begin{prop}
+	Variabili aleatorie $X$ e $Y$ sono indipendenti se e solo se
+	\begin{equation*}
+		a,b\in\R\qquad p_{X,Y}(a,b)=p_X(a)p_Y(b)
+	\end{equation*}
+\end{prop}
+\begin{proof}
+	L'implicazione verso destra:
+	\begin{gather*}
+		\forall A,B\subseteq\R\qquad P(X\in A, Y\in B)=P(X\in A)P(Y\in B) \\
+		\Rightarrow \\
+		a,b\in\R\qquad p_{X,Y}(a,b)=p_X(a)p_Y(b)
+	\end{gather*}
+	è immediata dal momento che si possono scegliere sottoinsiemi di $\R$ corrispondenti a singoletti contenenti $a$ e $b$ ($A=\{a\}$ e $B=\{b\}$).
+
+	L'implicazione inversa parte dalla ricostruzione di $A$ e $B$ come unioni di singoletti:
+	\begin{align*}
+		P(X\in A, Y\in B) & = \sum_{a\in A}\sum_{b\in B} p_{X,Y}(a,b)              \\
+		                  & = \sum_{a\in A}\sum_{b\in B} p_X(a)p_Y(b) \bc{ipotesi} \\
+		                  & = \sum_{a\in A}p_X(a) \sum_{b\in B} p_Y(b)             \\
+		                  & = P(X\in A)P(Y\in B)
+	\end{align*}
+\end{proof}
+
+Si dimostra anche la seguente equivalenza:
+\begin{prop}
+	Variabili aleatorie $X$ e $Y$ sono indipendenti se e solo se
+	\begin{equation*}
+		a,b\in\R\qquad F_{X,Y}(a,b)=F_X(a)F_Y(b)
+	\end{equation*}
+\end{prop}
+
+
+
+\subsection{Multivariati}
+I concetti visti per coppie di variabili aleatorie si estendono a vettori aleatori (più comunemente detti variabili aleatorie multivariate, o multivariati) di dimensione arbitraria:
+
+
+\subsubsection{Funzione di ripartizione}
+\begin{defin}
+	Date $n$ variabili aleatorie $X_1, \dots, X_n$, la funzione di ripartizione $F_{X_1,\dots,X_n}:\R^n\to[0,1]$ è la funzione che associa a una $n$-upla di valori reali $x_1,\dots,x_n$ la probabilità che l'esito di $X_i$ sia minore o uguale a $x_i$ per ogni $i$ da $1$ a $n$:
+	\begin{equation*}
+		F_{X_1,\dots,X_n}(x_1,\dots,x_n)=P(X_1\leq x_1,\dots,X_n\leq x_n)
+	\end{equation*}
+\end{defin}
+
+
+\subsubsection{Funzione di massa di probabilità}
+\begin{defin}
+	Date $n$ variabili aleatorie $X_1, \dots, X_n$, la funzione di ripartizione $F_{X_1,\dots,X_n}:\R^n\to[0,1]$ è la funzione che associa a una $n$-upla di valori reali $x_1,\dots,x_n$ la probabilità che l'esito di $X_i$ sia uguale a $x_i$ per ogni $i$ da $1$ a $n$:
+	\begin{equation*}
+		F_{X_1,\dots,X_n}(x_1,\dots,x_n)=P(X_1\leq x_1,\dots,X_n\leq x_n)
+	\end{equation*}
+\end{defin}
+
+
+\subsubsection{Indipendenza}
+\begin{defin}
+	Variabili aleatorie $X_1,\dots,X_n$ sono indipendenti se e solo se
+	\begin{equation*}
+		\forall A_1,\dots,A_n\subseteq\R \qquad P\left(\bigcap_{i=1}^n X_i\in A_i\right) = \prod_{i=1}^n P(X_i\in A_i)
+	\end{equation*}
+\end{defin}
+
+
+\subsubsection{Valore atteso}
+Il valore atteso per una funzione applicata a una coppia di variabili aleatorie discrete coinvolge tutte le combinazioni\footnote{la sommatoria con doppio indice può essere scomposta in due sommatorie, una per ogni indice} di specificazioni delle due variabili:
+\begin{equation*}
+	\ev{f(x,y)}=\sum_{i,j}f(x_i,y_j)P(X=x_i,Y=y_i)
+\end{equation*}
+
+\begin{prop}
+	Il valore atteso della somma di due variabili aleatorie discrete è uguale alla somma dei valori attesi delle stesse.
+	\begin{equation*}
+		\ev{X+Y}=\ev{X}+\ev{Y}
+	\end{equation*}
+\end{prop}
+\begin{proof}
+	\begin{align*}
+		\ev{X+Y} & = \sum_i\sum_j (x_i+y_i) P(X=x_i,Y=y_i)                               \\
+		         & = \sum_i\sum_j x_i P(X=x_i,Y=y_i) + \sum_i\sum_j y_i P(X=x_i,Y=y_i)   \\
+		         & = \sum_i x_i \sum_j P(X=x_i,Y=y_i) + \sum_j y_i \sum_i P(X=x_i,Y=y_i)
+	\end{align*}
+	Le due sommatorie interne sono probabilità marginali:
+	\begin{align*}
+		 & = \sum_i x_i P(X=x_i) + \sum_j y_i P(Y=y_i) \\
+		 & = \ev{X} + \ev{Y}
+	\end{align*}
+\end{proof}
+
+Generalizzando:
+\begin{prop}
+	Il valore atteso della somma di variabili aleatorie discrete è uguale alla somma dei valori attesi delle stesse.
+	\begin{equation*}
+		\ev{\sum_i X_i}=\sum_i \ev{X_i}
+	\end{equation*}
+\end{prop}
+
+Di conseguenza, se si può esprimere una variabile $X$ come la somma di variabili $X_1,\dots,X_n$, è sufficiente calcolare il valore atteso di ciascuna componente per calcolare quello della variabile iniziale.
+
+
+\subsubsection{Altre proprietà}
+Il seguente risultato è una generalizzazione della varianza, utile a valutare quanto un'approssimazione $c$ di $X$ è buona. La migliore approssimazione è $c=\ev{X}$, in coerenza con il senso semantico di $\ev{X}$.
+\begin{prop}
+	\begin{equation*}
+		\ev{(X-c)^2}=\var(X)+(\mu-c)^2\geq\var(X)
+	\end{equation*}
+\end{prop}
+\begin{proof}
+	Se $\mu=\ev{X}$
+	\begin{align*}
+		\ev{(X-c)^2} & = \ev{(X-\mu+\mu-c)^2}                                                     \\
+		             & = \ev{(X-\mu)^2-2(X-\mu)(\mu-c)+(\mu-c)^2}                                 \\
+		             & = \ev{(X-\mu)^2}-\ev{2(X-\mu)(\mu-c)}+(\mu-c)^2                            \\
+		             & = \ev{(X-\mu)^2}-2(\mu-c)\underbrace{\ev{X-\mu}}_{=\ev{X}-\mu=0}+(\mu-c)^2 \\
+		             & = \ev{(X-\mu)^2}+(\mu-c)^2
+	\end{align*}
+\end{proof}
+
+
+
+\subsection{Covarianza}
+
+\begin{defin}
+	Date due variabili aleatorie $X$ e $Y$, la covarianza tra $X$ e $Y$ è così definita:
+	\begin{equation} \label{eq:covar}
+		\cov(X,Y)=\ev{(X-\mu_X)(Y-\mu_Y)}
+	\end{equation}
+\end{defin}
+\noindent
+Ovviamente la covarianza è simmetrica, ossia $\cov(X,Y)=\cov(Y,X)$.
+
+
+\subsubsection{Proprietà}
+La seguente è una definizione equivalente per la covarianza tra due variabili aleatorie:
+\begin{prop} \label{prop:covalt}
+	Date due variabili aleatorie $X$ e $Y$, la covarianza tra $X$ e $Y$ è uguale al valore atteso del prodotto delle due meno il prodotto dei rispettivi valori attesi:
+	\begin{equation*}
+		\cov(X,Y)=\ev{XY}-\ev{X}\ev{Y}
+	\end{equation*}
+\end{prop}
+\begin{proof}
+	Sviluppando la \eqref{eq:covar}:
+	\begin{align*}
+		\cov(X,Y) & = \ev{XY-\mu_X Y-\mu_Y x + \mu_X\mu_Y}                                                            \\
+		          & = \ev{X,Y}-\underbrace{\mu_X\ev{Y}}_{\mu_X\mu_Y}-\underbrace{\mu_Y\ev{X}}_{\mu_X\mu_Y}+\mu_X\mu_Y \\
+		          & =\ev{XY}-\ev{X}\ev{Y}
+	\end{align*}
+\end{proof}
+
+\begin{prop}
+	La covarianza è lineare rispetto alla dilatazione di una variabile per una costante:
+	\begin{equation*}
+		\cov(aX,Y)=a\cov(X,Y)
+	\end{equation*}
+\end{prop}
+\begin{proof}
+	Applicando la proprietà \ref{prop:covalt}:
+	\begin{align*}
+		\cov(aX,Y) & = \ev{aXY}-\ev{aX}\ev{Y}  \\
+		           & = a(\ev{XY}-\ev{X}\ev{Y}) \\
+		           & = a\cov(X,Y)
+	\end{align*}
+\end{proof}
+
+\begin{prop} \label{prop:covsum0}
+	\begin{equation*}
+		\cov(X+Y,Z)=\cov(X,Z)+\cov(Y,Z)
+	\end{equation*}
+\end{prop}
+\begin{proof}
+	\begin{align*}
+		\cov(X+Y,Z) & = \ev{(X+Y)Z} - \ev{X+Y}\ev{Z}                    \\
+		            & = \ev{XZ+YZ} - (\ev{X} + \ev{Y}) \ev{Z}           \\
+		            & = \ev{XZ} + \ev{YZ} - \ev{X}\ev{Z} - \ev{Y}\ev{Z} \\
+		            & = \cov(X,Z) + \cov(Y,Z)
+	\end{align*}
+\end{proof}
+
+Generalizzando:
+\begin{prop} \label{prop:covsum}
+	\begin{equation*}
+		\cov\left(\sum_i X_i,\sum_j Y_j\right)=\sum_i\sum_j\cov(X_i,Y_i)
+	\end{equation*}
+\end{prop}
+\begin{proof}
+	Per la :
+	\begin{align*}
+		\cov\left(\sum_i X_i,\sum_j Y_j\right) & = \sum_i\cov\left(X_i,\sum_j Y_j\right) \bc{proprietà \ref{prop:covsum0}} \\
+		                                       & = \sum_i\sum_j \cov(X_i,Y_i) \bc{proprietà \ref{prop:covsum0}}            \\
+	\end{align*}
+\end{proof}
+
+\begin{prop}
+	La covarianza tra una variabile aleatoria $X$ e se stessa è la varianza di $X$:
+	\begin{equation*}
+		\cov(X,X)=\var(X)
+	\end{equation*}
+\end{prop}
+\begin{proof}
+	\begin{align*}
+		\cov(X,X) & = \ev{(X-\mu)(X-\mu)} \\
+		          & = \ev{(X-\mu)^2}      \\
+		          & = \var(X)
+	\end{align*}
+\end{proof}
+
+\begin{prop} \label{prop:varsum}
+	La varianza della somma di due variabili aleatorie $X$ e $Y$ è uguale alla somma delle rispettive varianze più il doppio della loro covarianza:
+	\begin{equation*}
+		\var(X+Y) = \var(X)+\var(Y)+2\cov(X,Y)
+	\end{equation*}
+\end{prop}
+\begin{proof}
+	Usando la definizione alternativa (proprietà \ref{prop:varalt}):
+	\begin{align*}
+		\var(X+Y) & = \ev{(X+Y)^2} - \ev{X+Y}^2                                            \\
+		          & = \ev{X^2+2XY+Y^2}-(\ev{X}+\ev{Y})^2                                   \\
+		          & = \ev{X^2} + 2\ev{XY} + \ev{Y^2} - \ev{X}^2 - 2\ev{X}\ev{Y} - \ev{Y}^2 \\
+		          & = \ev{X^2} - \ev{X}^2 + \ev{Y^2} - \ev{Y}^2 + 2(\ev{XY}-\ev{X}-\ev{Y}) \\
+		          & = \var(X) + \var(Y) + 2\cov(X,Y)
+	\end{align*}
+\end{proof}
+
+Generalizzando:
+\begin{prop} \label{prop:varsumcov}
+	\begin{equation*}
+		\var\left(\sum_{i=1}^n X_i\right) = \sum_{i=1}^n \var(X_i) + \sum_{i\neq j}\cov(X_i,Y_j)
+	\end{equation*}
+\end{prop}
+\noindent
+La dimostrazione è ovvia
+
+\begin{teor}
+	Il valore atteso del prodotto di variabili aleatorie discrete indipendenti è uguale al prodotto dei rispettivi valori attesi:
+	\begin{equation*}
+		\ev{XY} = \ev{X}\ev{Y}
+	\end{equation*}
+\end{teor}
+\begin{proof}
+	\begin{align*}
+		\ev{XY} & = \sum_i\sum_j x_i y_j P(X=x_i,Y=y_i)                              \\
+		        & = \sum_i\sum_j x_i y_j P(X=x_i)P(Y=y_j)                            \\
+		        & = \left(\sum_i x_i P(X=x_i)\right)\left(\sum_j y_j P(Y=y_j)\right) \\
+		        & = \ev{X}\ev{Y}
+	\end{align*}
+\end{proof}
+
+\begin{corol}
+	La covarianza di ude variabili aleatorie discrete indipendenti $X$ e $Y$ è nulla:
+	\begin{equation*}
+		\cov(X,Y) = 0
+	\end{equation*}
+\end{corol}
+\begin{proof}
+	\begin{align*}
+		\cov(X,Y) & = \ev{XY}-\ev{X}\ev{Y}      \\
+		          & = \ev{X}\ev{Y}-\ev{X}\ev{Y} \\
+		          & = 0
+	\end{align*}
+\end{proof}
+
+\begin{corol}
+	Date variabili indipendenti $X_1,\dots,X_n$:
+	\begin{equation*}
+		\var\left(\sum_{i=1}^n X_i\right) = \sum_{i=1}^n \var(X_i)
+	\end{equation*}
+\end{corol}
+\begin{proof}
+	Applicando la proprietà \ref{prop:varsum}:
+	\begin{align*}
+		\var\left(\sum_{i=1}^n X_i\right) & = \sum_{i=1}^n\var(X_i)+2\sum_{i\neq j}\cov(X_i,X_j) \\
+		                                  & = \sum_{i=1}^n \var(X_i)
+	\end{align*}
+\end{proof}
+
+
+\begin{prop}
+	Date funzioni indicatrici di eventi, o in generale variabili aleatorie bernoulliane (ossia di specificazione binaria):
+	\begin{equation*}
+		\cov(X,Y)>0 \Rightarrow P(X=1\mid Y=1)>P(X=1)
+	\end{equation*}
+\end{prop}
+\begin{proof}
+	\begin{align*}
+		\cov(X,Y) & = \ev{X,Y} - \ev{X}\ev{Y} \\
+		          & = P(XY=1)-P(X=1)P(Y=1)    \\
+		          & = P(X=1,Y=1)-P(X=1)P(Y=1) \\
+	\end{align*}
+	Se $\cov(X,Y)>0$
+	\begin{align*}
+		P(X=1,Y=1)                & > P(X=1)P(Y=1) \\
+		\frac{P(X=1,Y=1)}{P(Y=1)} & > P(X=1)       \\
+		P(X=1\mid Y=1)            & > P(X=1)
+	\end{align*}
+\end{proof}
+
+
+\subsubsection{Coefficiente di correlazione}
+\begin{defin}
+	Il coefficiente di correlazione $\rho$ è un indice di correlazione tra variabili aleatorie discrete ed è così definito:
+	\begin{equation*}
+		\rho= \frac{\cov(X,Y)}{\sigma x\sigma y}
+	\end{equation*}
+\end{defin}

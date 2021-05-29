@@ -1,0 +1,200 @@
+\section{Statistica inferenziale}
+La statistica inferenziale tenta di applicare un'inferenza attraverso l'induzione. La statistica inferenziale riprende concetti della statistica descrittiva ma li reinterpreta in senso probabilistico applicando l'induzione.
+
+\subsection{Definizioni}
+Gli attori fondamentali della statistica inferenziale sono la popolazione, il campione la statistica o stimatore\footnote{in alcuni contesti, i termini statistica e stimatore differiscono leggermente di significato. Tuttavia in questo testo verranno usati equivalentemente.}, e la stima.
+
+\begin{itemize}
+	\item La popolazione è descritta come una variabile aleatoria $X$. La branca della statistica inferenziale in cui la distribuzione di $X$ è nota a meno di uno o più parametri $\theta$ si dice parametrica: $X\sim F(\theta)$. Se anche il modello della distribuzione è ignoto, si tratta di statistica inferenziale non parametrica. Nel resto di questo testo si studierà la statistica inferenziale parametrica;
+	\item Poiché non sempre si vuole ricavare o approssimare il parametro di distribuzione ignoto $\theta$, ma talvolta un valore che ne deriva, si introduce la funzione $\tau(\theta)$ a indicare tale valore;
+	\item L'informazione conosciuta sulla popolazione è data da un campione, talvolta espresso come una serie di variabili aleatorie $X_1,\dots,X_n$ indipendenti e identicamente distribuite, talvolta come una tupla di loro specificazioni $x_1,\dots,x_n$;
+	\item L'operazione di stimare $\tau(\theta)$ consiste nella statistica o stimatore, che è una funzione $t$ che associa a una tupla possibili specificazioni del campione a un numero reale che stima il valore cercato: $t:D_X^n\to\R$. Essendo la statistica una variabile aleatoria, la si rappresenta talvolta (quando si vuole evidenziare tale lettura) con $T$;
+	\item Una stima $\hat\tau$ è un'immagine della statistica e approssima $\tau(\theta)$: $\hat\tau = t(x_1,\dots,x_n)$ con istanze $X_1=x_1,\dots,X_n=x_n$.
+\end{itemize}
+
+\subsubsection{Stimatori non deviati}
+\begin{defin}[stimatore non deviato]
+	Uno stimatore $t$ è non deviato per una quantità $\tau(\theta)$ quando il suo valore atteso è uguale a $\tau(\theta)$:
+	\begin{equation*}
+		\ev{t(X_1,\dots,X_n)} = \tau(\theta)
+	\end{equation*}
+\end{defin}
+
+\begin{examp}
+	Uno stimatore non deviato per stimare il valore atteso, indipendentemente dalla distribuzione, è quello che fa corrispondere alle specificazioni date la loro media:
+	\begin{equation*}
+		t(x_1,\dots,x_n) = \frac{1}{n} \sum_{i=1}^n x_i \qquad \tau(\theta) = \ev{X}
+	\end{equation*}
+	Infatti:
+	\begin{align*}
+		\ev{t} & = \ev{\frac{1}{n} \sum_{i=1}^n X_i} \\
+		       & = \frac{1}{n}\sum_{i=1}^n \ev{X_i}  \\
+		       & = \frac{1}{n} \cdot n\ev{X_i}       \\
+		       & = \ev{X}
+	\end{align*}
+	Inoltre, calcolando la varianza dello stimatore ci si accorge che essa tende a 0 per campioni molto grandi:
+	\begin{equation*}
+		\var\left(\frac{1}{n} \sum_{i=1}^n x_i\right) = \frac{1}{n^2} \sum_{i=1}^n \var(X_i) = \frac{n}{n^2}\var(X) = \frac{\var(X)}{n}
+	\end{equation*}
+\end{examp}
+
+
+\subsection{Errore quadratico medio}
+Il errore quadratico medio (Mean Square Error o MSE) è un modo di valutare uno stimatore di una quantità ignota:
+\begin{defin}[errore quadratico medio]
+	\begin{equation*}
+		\MSE_{\tau(\theta)}(T) = \ev{(T-\tau(\theta))^2}
+	\end{equation*}
+	con $T=t(X_1,\dots,X_n)$.
+\end{defin}
+
+\begin{defin}
+	Il bias di uno stimatore $T$ su $\tau(\theta)$ è la differenza tra il suo valore atteso e $\tau(\theta)$:
+	\begin{equation*}
+		b_{T(\theta)}(T) = \ev{T} - \tau(\theta)
+	\end{equation*}
+\end{defin}
+
+In virtù delle definizioni di MSE e bias si può trarre un interessante risultato:
+\begin{align*}
+	\MSE_{\tau(\theta)}(T) & = \ev{(T-\tau(\theta))^2}                                                                            \\
+	                       & = \ev{(T-\ev{T}+\ev{T}-\tau(\theta))^2}                                                              \\
+	                       & = \ev{(T-\ev{T})^2+2(T-\ev{T})(\ev{T}-\tau(\theta))+(\ev{T}-\tau(\theta))^2}                         \\
+	                       & = \ev{(T-\ev{T})^2} + 2(\ev{T}-\tau(\theta))\underbrace{\ev{T-\ev{T}}}_{0} + (\ev{T}-\tau(\theta))^2 \\
+	                       & = \var(T) + (\ev{T}-\tau(\theta))^2                                                                  \\
+	                       & = \var(T) + (b_{T(\theta)}(T))^2
+\end{align*}
+Per definizione, se $T$ è uno stimatore non deviato per $\tau(\theta)$ allora $b_{\tau(\theta)}(T)=0$ e quindi l'errore quadratico medio di $T$ è uguale alla sua varianza.
+
+
+\subsection{Stimatori consistenti}
+\begin{defin}[Stimatore consistente in media quadratica]
+	Uno stimatore $T_n$\footnote{Più precisamente, si parla di una famiglia di stimatori $T_n$ i cui membri differiscono per dimensione del campione} è consistente in media quadratica per $\tau(\theta)$ se
+	\begin{equation*}
+		\lim_{n\to+\infty} \MSE_{\tau(\theta)}(T_n) = 0
+	\end{equation*}
+\end{defin}
+
+\begin{defin}[Stimatore debolmente consistente]
+	Uno stimatore $T_n=t(X_1,\dots,X_n)$ è debolmente consistente rispetto a una quantità ignota $\tau(\theta)$ se e solo se
+	\begin{equation*}
+		\forall\varepsilon>0 \quad \lim_{n\to+\infty} P(\tau(\theta)-\varepsilon \leq T_n \leq \tau(\theta)+\varepsilon) = 1
+	\end{equation*}
+\end{defin}
+
+\begin{teor}
+	Se uno stimatore $T$ è consistente in media quadratica per $\tau(\theta)$ allora $T$ è debolmente consistente per $\tau(\theta)$.
+\end{teor}
+\begin{proof}
+	\begin{align*}
+		P(-\varepsilon\leq T_n-\tau(\theta)\leq \varepsilon) & = P(\abs{T_n-\tau(\theta)}\leq\varepsilon)                                                                         \\
+		                                                     & = P((T_n-\tau(\theta))^2\leq\varepsilon^2)                                                                         \\
+		                                                     & = 1 - P((T_n-\tau(\theta))^2>\varepsilon^2)                                                                        \\
+		                                                     & > 1-\frac{\ev{(T_n-\tau(\theta))^2}}{\varepsilon^2} \bc{\parbox{35mm}{disuguaglianza \ref{teor:markov} di Markov}} \\
+		                                                     & = 1-\frac{\MSE_{\tau(\theta)}(T_n)}{\varepsilon^2} \to 1
+	\end{align*}
+	Essendo le probabilità limitate superiormente da $1$, per il teorema del confronto la probabilità iniziale tende a $1$.
+\end{proof}
+
+
+\subsection{Legge dei grandi numeri}
+\begin{teor}[legge dei grandi numeri forte]
+	\begin{equation*}
+		P\left(\lim_{n\to+\infty}\bar X_n = \mu\right) = 1
+	\end{equation*}
+\end{teor}
+
+\begin{teor}[legge dei grandi numeri debole]
+	\begin{equation*}
+		\forall\varepsilon > 0 \qquad \lim_{n\to+\infty} P\left(\abs{\bar X_n - \mu} > \varepsilon\right) = 0
+	\end{equation*}
+\end{teor}
+
+
+\subsection{Problema dello scarto}
+Un problema tipico che fa uso del teorema centrale del limite nella statistica inferenziale è il seguente.
+
+Sia $\bar X_n$ la media campionaria dipendente da $n$ elementi e sia $\mu$ il suo valore atteso. Si vuole che lo scarto $\abs{\bar X_n - \mu}$ tra i due valori sia minore di una soglia $r$ con probabilità superiore a $1-\delta$ (con $\delta$ piccolo a piacere):
+\begin{equation*}
+	P(\abs{\bar X_n - \mu} \leq r) \geq 1-\delta \\
+\end{equation*}
+
+Normalizzando:
+\begin{align*}
+	P\left(\frac{\abs{\bar X_n - \mu}}{\sigma/\sqrt{n}} \leq \frac{r}{\sigma/\sqrt{n}}\right) & = P\left(\abs{\frac{\bar X_n - \mu}{\sigma/\sqrt{n}}} \leq \frac{r\sqrt{n}}{\sigma}\right)               \\
+	                                                                                          & \approx P\left(\abs{Z} \leq \frac{r}{\sigma}\sqrt{n}\right)                                              \\
+	                                                                                          & = P\left(-\frac{r}{\sigma}\sqrt{n}\leq Z\leq \frac{r}{\sigma}\sqrt{n}\right)                             \\
+	                                                                                          & = \Phi\left(\frac{r}{\sigma}\sqrt{n}\right) - \Phi\left(- \frac{r}{\sigma}\sqrt{n}\right)                \\
+	                                                                                          & = \Phi\left(\frac{r}{\sigma}\sqrt{n}\right) - \left(1 - \Phi\left(\frac{r}{\sigma}\sqrt{n}\right)\right)
+\end{align*}
+
+Ergo:
+\begin{align*}
+	2\Phi\left(\frac{r}{\sigma}\sqrt{n}\right) - 1 & \geq 1 - \delta                                                              \\
+	\Phi\left(\frac{r}{\sigma}\sqrt{n}\right)      & \geq 1 - \frac{\delta}{2}                                                    \\
+	\frac{r}{\sigma}\sqrt{n}                       & \geq \Phi^{-1}\left(1-\frac{\delta}{2}\right)                                \\
+	n                                              & \geq \left(\frac{\sigma}{r}\Phi^{-1}\left(1-\frac{\delta}{2}\right)\right)^2
+\end{align*}
+
+Allo stesso modo si possono ricavare gli altri parametri del problema:
+\begin{gather*}
+	r = \frac{\sigma}{\sqrt{n}}\Phi^{-1}\left(1-\frac{\delta}{2}\right) \\
+	\delta \geq 2\left(1-\Phi\left(\frac{r}{\sigma}\sqrt{n}\right)\right)
+\end{gather*}
+% TODO: verificare che $\sqrt{s^2}$ sia uno stimatore non deviato per $\sigma$
+Mentre $\sigma$ tipicamente è stimato come $\sqrt{s^2}$ (dove $s$ è la deviazione standard campionaria).
+
+Un'alternativa a questo tipo di stima si può fare applicando la disuguaglianza di Tchebishev:
+% TODO: r=\varepsilon, coerenza a riguardo
+% TODO: avere più uniformità tra i due metodi
+\begin{align*}
+	P(\abs{X-\mu}\geq r)                                                       & \leq \frac{\sigma^2}{r^2}     \\
+	P(\abs{X-\mu} < r) = 1-P(\abs{X-\mu}\geq r)                                & \geq 1 - \frac{\sigma^2}{r^2} \\
+	P(\abs{\bar X-\mu} < \varepsilon) \geq 1 - \frac{\sigma^2}{n\varepsilon^2} & \geq 1-\delta                 \\
+	\frac{\sigma^2}{n\varepsilon^2}                                            & \leq \delta                   \\
+\end{align*}
+% TODO: spiegazione
+\begin{gather*}
+	n \geq \frac{\sigma^2}{\delta\varepsilon^2} \Rightarrow P(\abs{\bar X-\mu}<\varepsilon) \geq 1-\delta \\
+	\delta\geq\frac{\sigma^2}{n\varepsilon^2} \\[1ex]
+	\varepsilon \geq \sqrt{\frac{\sigma^2}{n\delta}}
+\end{gather*}
+
+
+\subsection{Processo di Poisson}
+% TODO: intro
+Sia $t$ una variabile temporale e $N(t)$ il numero di eventi (variabile aleatoria) che avvengono nell'intervallo di tempo $[0,t)$.
+
+Al variare di $t$ si definisce una famiglia di variabili aleatorie secondo processi stocastici.
+
+Il processo di Poisson parte dalle seguenti ipotesi:
+\begin{enumerate}
+	\item $N(0)=0$;
+	\item istanze di $N$ sono indipendenti per intervalli disgiunti;
+	\item $\displaystyle\lim_{h\to0}\frac{P(N(h)=1)}{h}=\lambda$;
+	\item $\displaystyle\lim_{h\to0}\frac{P(N(h)\geq 2)}{h}=0$;
+\end{enumerate}
+In un contesto in cui valgono le ipotesi la variabile $N(t)$ è distribuita secondo il modello di Poisson con parametro $\lambda t$:
+\begin{equation*}
+	N(t)\sim P(\lambda t)
+\end{equation*}
+
+% TODO: sistemare lingua
+Ipotizzato $N(t)=k\in\N$ e scelto un $n\in\N$, si divide l'intervallo $[0,t)$ in $n$ parti uguali $[\frac{m}{n}t,\frac{m+1}{n}t)$. Potendo scegliere $n$ grande a piacere si può scegliere in particolare $n>k$. Chiamato con $A$ l'evento che corrisponde a ognuno dei $k$ eventi avviene in un intervallo diverso e $B$ il suo complementare, se si verifica $B$ esiste un intervallo tale che due eventi avvengono in esso.
+
+Poiché per l'ipotesi 4 la probabilità di un tale evento per uno specifico intervallo è tendente a $0$ ($n$ grande a piacere) e per l'ipotesi 2 la probabilità di un tale evento in qualunque intervallo è calcolabile come il prodotto delle singole, la probabilità complessiva è il prodotto di fattori nulli ed è pertanto uguale a $0$.
+
+La probabilità che ogni intervallo contenga esattamente un evento, per l'ipotesi 3 è tendente a
+\begin{align*}
+	P(N(t) = k) & = P(A) \\
+	& = \binom{n}{k}\left(\lambda\frac{t}{n}\right)^k\left(1-\lambda\frac{t}{n}\right)^{n-k} \\
+	& \sim B\left(n,\frac{\lambda t}{n}\right)
+\end{align*}
+Poiché il prodotto dei parametri della binomiale trovata è costante, la distribuzione è ben descritta da un modello di Poisson di parametro $\lambda t$:
+\begin{equation*}
+	N(t)\sim P(\lambda t)
+\end{equation*}
+Da cui
+\begin{equation*}
+	P(N(t)=k) = e^{-\lambda t}\frac{\dots}{\dots}\dots
+\end{equation*}

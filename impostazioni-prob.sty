@@ -1,0 +1,48 @@
+\pagestyle{headings}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{microtype}
+\usepackage[italian]{varioref}
+\usepackage{mparhack}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{booktabs}
+\usepackage{rotating}
+
+\theoremstyle{plain}
+\newtheorem{prop}{Proprietà}[subsection]
+\newtheorem{teor}{Teorema}[section]
+\newtheorem{corol}{Corollario}[teor]
+\newtheorem{lemma}{Lemma}
+\theoremstyle{definition}
+\newtheorem{defin}{Definizione}[section]
+\theoremstyle{remark}
+\newtheorem{enunc}{Enunciato}
+\newtheorem{examp}{Esempio}[subsection]
+\newtheorem{propo}{Proposizione}
+
+% math mode commands
+\newcommand{\A}{\mathcal A}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\ev}[1]{\mathbb{E}\left[ #1 \right]}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\cov}{cov}
+\DeclareMathOperator{\MSE}{MSE}
+\newcommand{\justif}[2]{& #1 & \text{#2}}
+\newcommand{\bc}[1]{\justif{\quad}{#1}}
+\newcommand{\eval}[3]{\left. #1 \right\rvert_{#2}^{#3}}
+\newcommand{\modsim}{\overset{\cdot}{\sim}}
+
+% text mode commands
+\newcommand{\qt}[1]{``#1''}
+\newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}%
+  #1\ignorespaces
+}
+
+\usepackage[hidelinks]{hyperref}

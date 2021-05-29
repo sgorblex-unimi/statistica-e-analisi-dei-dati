@@ -1,0 +1,113 @@
+\section{Variabili aleatorie continue}
+\begin{defin}[funzione di densità di probabilità]
+	Data una variabile aleatoria $X$, la funzione di densità di probabilità di $X$ è una funzione $f_X:\R\to\R^+$ integrabile e tale che:
+	\begin{equation*}
+		\int_{-\infty}^{+\infty} f_X(x)dx = 1
+	\end{equation*}
+\end{defin}
+
+La probabilità di variabili aleatorie continue viene calcolata integrando la funzione di densità di probabilità:
+\begin{equation*}
+	\forall B\subseteq\R, P(X\in B)=\int_B f_X(x)dx
+\end{equation*}
+O, in un intervallo $[a,b]$:
+\begin{equation*}
+	P(a\leq X\leq b)=\int_a^b f_X(x)dx
+\end{equation*}
+che è equivalente a quella dell'intervallo $(a,b)$.
+
+La proprietà della definizione non è altro che la conseguenza del primo assioma di Kolmogorov:
+\begin{equation*}
+	P(X\in\R) = \int_{-\infty}^{+\infty} f_X(x)dx = \int_\R f_X(x)dx = 1
+\end{equation*}
+
+Per variabili aleatorie continue non ha senso calcolare la probabilità che una variabile assuma uno specifico valore, infatti:
+\begin{equation*}
+	\forall a\in\R \qquad P(X=a)=\int_a^a f_X(x)dx=0
+\end{equation*}
+
+In un certo intervallo che approssima $a$, ossia $[a-\frac{\varepsilon}{2},a+\frac{\varepsilon}{2}]$, invece:
+\begin{equation*}
+	P\left(a - \frac{\varepsilon}{2}\leq X\leq a + \frac{\varepsilon}{2}\right) = \int_{a - \frac{\varepsilon}{2}}^{a + \frac{\varepsilon}{2}} f_X(x)dx \approx \varepsilon f_X(a)
+\end{equation*}
+
+Calcolando l'integrale della funzione di densità in un intervallo del tipo $(-\infty,a)$ si calcola di fatto il valore della funzione di ripartizione in $a$:
+\begin{equation*}
+	\int_{-\infty}^a f_X(x)dx = P(X\leq a) = F_X(a) \\
+\end{equation*}
+Per il teorema fondamentale del calcolo integrale, da ciò deriva che la funzione di densità di probabilità è la derivata della funzione di ripartizione:
+\begin{equation*}
+	\frac{d}{dx}F_X(x)=f(x)
+\end{equation*}
+
+\subsection{Valore atteso}
+\begin{defin}
+	Il valore atteso per le variabili aleatorie continue è così definito:
+	\begin{equation*}
+		\ev{X}=\int_{-\infty}^{+\infty} x f_X(x)dx
+	\end{equation*}
+\end{defin}
+
+\begin{prop} \label{prop:valatnonneg}
+	Per le variabili aleatorie che non assumono specificazioni negative:
+	\begin{equation*}
+		\forall x<0 \qquad f_X(x)=0
+	\end{equation*}
+	vale
+	\begin{equation*}
+		\int_0^{+\infty} 1-F_X(x)dx = \ev{X}
+	\end{equation*}
+\end{prop}
+
+\subsection{Disuguaglianza di Markov}
+\begin{teor}[Disuguaglianza di Markov] \label{teor:markov}
+	Sia $X$ una variabile aleatoria non negativa. Allora per ogni $a$ reale:
+	\begin{equation*}
+		P(X\geq a) \leq \frac{\ev{X}}{a}
+	\end{equation*}
+\end{teor}
+\begin{proof}
+	\begin{align*}
+		\ev{X} & = \int_0^{+\infty} x f_X(x) dx \bc{proprietà \ref{prop:valatnonneg}}                                 \\
+		       & = \underbrace{\int_0^a x f_X(x) dx}_{\geq 0} + \int_a^{+\infty} x f_X(x) dx                          \\
+		       & \geq \int_a^{+\infty} x f_X(x) dx                                                                    \\
+		       & \geq \int_a^{+\infty} a f_X(x) dx                                           \bc{in quanto $x\geq a$} \\
+		       & = a \int_a^{+\infty} f_X(x) dx                                                                       \\
+		       & = a P(X\geq a)
+	\end{align*}
+	ergo
+	\begin{equation*}
+		\frac{\ev{X}}{a}\geq P(X\geq a)
+	\end{equation*}
+\end{proof}
+
+
+
+\subsection{Disuguaglianza di Tchebyshev}
+La disuguaglianza di Tchebyshev dà una limitazione superiore alla probabilità che l'esito di una variabile aleatoria si discosti dal suo valore atteso di una quantità maggiore o uguale a una soglia scelta.
+\begin{teor}[Disuguaglianza di Tchebyshev]
+	Sia $X$ una variabile aleatoria, con $\ev{X}=\mu, \var(X)=\sigma^2$. Allora:
+	\begin{equation*}
+		\forall r>0\qquad P(\abs{X-\mu}\geq r)\leq \frac{\sigma^2}{r^2}
+	\end{equation*}
+\end{teor}
+\begin{proof}
+	\begin{equation*}
+		\abs{X-\mu}\geq r \Leftrightarrow (X-\mu)^2 \geq r^2
+	\end{equation*}
+	Passando alle probabilità:
+	\begin{align*}
+		P(\abs{X-\mu}\geq r) & = P((X-\mu)^2 \geq r^2)                                       \\
+		                     & \leq \frac{\ev{(X-\mu)^2}}{r^2} \bc{disuguaglianza di Markov} \\
+		                     & =\frac{\var(X)}{r^2}
+	\end{align*}
+	Ergo:
+	\begin{equation*}
+		P(\abs{X-\mu}\geq r)\leq \frac{\sigma^2}{r^2}
+	\end{equation*}
+\end{proof}
+
+Un'interessante applicazione della disuguaglianza di Tchebyshev è quella che riguarda la deviazione standard, che riguarda l'andamento della probabilità allontanandosi dal valore atteso di quantità ripetute della deviazione standard:
+\begin{equation*}
+	P(\abs{X-\mu}\geq k\sigma)\leq\frac{1}{k^2}
+\end{equation*}
