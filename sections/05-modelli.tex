@@ -367,9 +367,9 @@ Essendo le variabili $X_i$ non indipendenti, la varianza della loro somma non è
 \end{align*}
 Ergo
 \begin{align*}
-	\var(X) & = \sum_{i=1}^n \var(X_i) + 2\sum_{i\neq j}^n \cov(X_i,X_j)               \\
-	        & = n\frac{NM}{(N+M)^2} - \frac{n(n-1)}{2}\cdot\frac{-2NM}{(N+M-1)(N+M)^2} \\
-	        & = n\frac{NM}{(N+M)^2}\left(1-(n-1)\frac{1}{N+M-1}\right)                 \\
+	\var(X) & = \sum_{i=1}^n \var(X_i) + \sum_{i\neq j}^n \cov(X_i,X_j)     \\
+	        & = n\frac{NM}{(N+M)^2} - n(n-1)\cdot\frac{-NM}{(N+M-1)(N+M)^2} \\
+	        & = n\frac{NM}{(N+M)^2}\left(1-(n-1)\frac{1}{N+M-1}\right)      \\
 	        & = np(1-p)\left(1-\frac{n-1}{N+M-1}\right)
 \end{align*}
 Per $N+M\to+\infty$ il modello si semplifica in un modello binomiale:

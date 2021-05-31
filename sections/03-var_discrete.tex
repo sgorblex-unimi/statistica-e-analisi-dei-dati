@@ -277,16 +277,16 @@ I concetti visti per coppie di variabili aleatorie si estendono a vettori aleato
 \begin{defin}
 	Date $n$ variabili aleatorie $X_1, \dots, X_n$, la funzione di ripartizione $F_{X_1,\dots,X_n}:\R^n\to[0,1]$ è la funzione che associa a una $n$-upla di valori reali $x_1,\dots,x_n$ la probabilità che l'esito di $X_i$ sia minore o uguale a $x_i$ per ogni $i$ da $1$ a $n$:
 	\begin{equation*}
-		F_{X_1,\dots,X_n}(x_1,\dots,x_n)=P(X_1\leq x_1,\dots,X_n\leq x_n)
+		F_{X_1,\dots,X_n}(x_1,\dots,x_n) = P(X_1\leq x_1,\dots,X_n\leq x_n)
 	\end{equation*}
 \end{defin}
 
 
 \subsubsection{Funzione di massa di probabilità}
 \begin{defin}
-	Date $n$ variabili aleatorie $X_1, \dots, X_n$, la funzione di ripartizione $F_{X_1,\dots,X_n}:\R^n\to[0,1]$ è la funzione che associa a una $n$-upla di valori reali $x_1,\dots,x_n$ la probabilità che l'esito di $X_i$ sia uguale a $x_i$ per ogni $i$ da $1$ a $n$:
+	Date $n$ variabili aleatorie $X_1, \dots, X_n$, la funzione di massa di probabilità $p_{X_1,\dots,X_n}:\R^n\to[0,1]$ è la funzione che associa a una $n$-upla di valori reali $x_1,\dots,x_n$ la probabilità che l'esito di $X_i$ sia uguale a $x_i$ per ogni $i$ da $1$ a $n$:
 	\begin{equation*}
-		F_{X_1,\dots,X_n}(x_1,\dots,x_n)=P(X_1\leq x_1,\dots,X_n\leq x_n)
+		p_{X_1,\dots,X_n}(x_1,\dots,x_n) = P(X_1=x_1,\dots,X_n=x_n)
 	\end{equation*}
 \end{defin}
 
@@ -314,9 +314,9 @@ Il valore atteso per una funzione applicata a una coppia di variabili aleatorie 
 \end{prop}
 \begin{proof}
 	\begin{align*}
-		\ev{X+Y} & = \sum_i\sum_j (x_i+y_i) P(X=x_i,Y=y_i)                               \\
-		         & = \sum_i\sum_j x_i P(X=x_i,Y=y_i) + \sum_i\sum_j y_i P(X=x_i,Y=y_i)   \\
-		         & = \sum_i x_i \sum_j P(X=x_i,Y=y_i) + \sum_j y_i \sum_i P(X=x_i,Y=y_i)
+		\ev{X+Y} & = \sum_i\sum_j (x_i+y_j) P(X=x_i,Y=y_j)                               \\
+		         & = \sum_i\sum_j x_i P(X=x_i,Y=y_j) + \sum_i\sum_j y_j P(X=x_i,Y=y_j)   \\
+		         & = \sum_i x_i \sum_j P(X=x_i,Y=y_j) + \sum_j y_j \sum_i P(X=x_i,Y=y_j)
 	\end{align*}
 	Le due sommatorie interne sono probabilità marginali:
 	\begin{align*}
@@ -417,14 +417,13 @@ La seguente è una definizione equivalente per la covarianza tra due variabili a
 Generalizzando:
 \begin{prop} \label{prop:covsum}
 	\begin{equation*}
-		\cov\left(\sum_i X_i,\sum_j Y_j\right)=\sum_i\sum_j\cov(X_i,Y_i)
+		\cov\left(\sum_i X_i,\sum_j Y_j\right)=\sum_i\sum_j\cov(X_i,Y_j)
 	\end{equation*}
 \end{prop}
 \begin{proof}
-	Per la :
 	\begin{align*}
 		\cov\left(\sum_i X_i,\sum_j Y_j\right) & = \sum_i\cov\left(X_i,\sum_j Y_j\right) \bc{proprietà \ref{prop:covsum0}} \\
-		                                       & = \sum_i\sum_j \cov(X_i,Y_i) \bc{proprietà \ref{prop:covsum0}}            \\
+		                                       & = \sum_i\sum_j \cov(X_i,Y_j) \bc{proprietà \ref{prop:covsum0}}            \\
 	\end{align*}
 \end{proof}
 
@@ -484,7 +483,7 @@ La dimostrazione è ovvia
 \end{proof}
 
 \begin{corol}
-	La covarianza di ude variabili aleatorie discrete indipendenti $X$ e $Y$ è nulla:
+	La covarianza di due variabili aleatorie discrete indipendenti $X$ e $Y$ è nulla:
 	\begin{equation*}
 		\cov(X,Y) = 0
 	\end{equation*}

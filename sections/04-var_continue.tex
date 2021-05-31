@@ -68,11 +68,11 @@ Per il teorema fondamentale del calcolo integrale, da ciò deriva che la funzion
 \end{teor}
 \begin{proof}
 	\begin{align*}
-		\ev{X} & = \int_0^{+\infty} x f_X(x) dx \bc{proprietà \ref{prop:valatnonneg}}                                 \\
-		       & = \underbrace{\int_0^a x f_X(x) dx}_{\geq 0} + \int_a^{+\infty} x f_X(x) dx                          \\
-		       & \geq \int_a^{+\infty} x f_X(x) dx                                                                    \\
-		       & \geq \int_a^{+\infty} a f_X(x) dx                                           \bc{in quanto $x\geq a$} \\
-		       & = a \int_a^{+\infty} f_X(x) dx                                                                       \\
+		\ev{X} & = \int_0^{+\infty} x f_X(x) dx                  \bc{variabile non negativa} \\
+		       & = \underbrace{\int_0^a x f_X(x) dx}_{\geq 0} + \int_a^{+\infty} x f_X(x) dx \\
+		       & \geq \int_a^{+\infty} x f_X(x) dx                                           \\
+		       & \geq \int_a^{+\infty} a f_X(x) dx                  \bc{in quanto $x\geq a$} \\
+		       & = a \int_a^{+\infty} f_X(x) dx                                              \\
 		       & = a P(X\geq a)
 	\end{align*}
 	ergo
