@@ -1,5 +1,27 @@
 % TODO: valutare le funzioni (ripartizione e massa) nel dominio negativo
 \section{Modelli}
+I modelli di distribuzione consistono in risultati notevoli corrispondenti a variabili aleatorie che rispettano determinate definizioni ricorrenti.
+
+% TODO: bisognerebbe aggiungere anche il supporto, tuttavia non riesco a sistemare la geometria della pagina in un modo soddisfacente che non causi warning.
+\begin{sidewaystable}
+	\centering
+	\begin{tabular}{llllll}
+		\toprule
+		\bfseries Modello           & \bfseries Parametri   & \bfseries F. di massa/densità                                    & \bfseries F. di ripartizione                                                                                          & \bfseries V. atteso & \bfseries Varianza    \\
+		\midrule
+		\bfseries Bernoulli         & $X\sim B(p)$          & $p^x(1-p)^{1-x}I_{\{0,1\}}(x)$                                   & $\begin{cases}0\quad & x<0\\1-p\quad & 0\leq x<1\\1\quad & x\leq 1\end{cases}$                                                                                           & $p$                 & $p(1-p)$              \\[5ex]
+		\bfseries Binomiale         & $X\sim B(n,p)$        & $\displaystyle\binom{n}{i} p^i(1-p)^{n-i}$                       & $\begin{cases}\sum_{i=0}^{\floor{x}}\binom{n}{i} p^i (1-p)^{n-i}\quad & x\leq n \\1 & x>n \end{cases}$                                                                                           & $np$                & $np(1-p)$             \\[3ex]
+		\bfseries Uniforme discreto & $X\sim U(n)$          & $\dfrac{1}{n} I_{\{1,\dots,n\}}(i)$                              & $\dfrac{\floor{x}}{n}$                                                                                                & $\dfrac{n+1}{2}$    & $\dfrac{n^2-1}{12}$   \\[2ex]
+		\bfseries Geometrico        & $X\sim G(p)$          & $(1-p)^ip ~ I_\N (i)$                                            & $1 - (1-p)^{\floor{x}+1}  $                                                                                           & $ \dfrac{1-p}{p}$   & $\dfrac{1-p}{p^2}$    \\[1ex]
+		\bfseries Poisson           & $X\sim P(\lambda)$    & $e^{-\lambda}\frac{\lambda^i}{i!} ~ I_\N(i)$                     & $\dots$                                                                                                               & $\lambda$           & $\lambda$             \\[2ex]
+		\bfseries Ipergeometrico    & $X\sim ?(N,M,n)$      & $\dfrac{\binom{N}{i}\binom{M}{n-i}}{\binom{N+M}{n}}$             & $\dots$                                                                                                               & $np$                & $\dfrac{NM}{(N+M)^2}$ \\[2ex]
+		\bfseries Uniforme continuo & $X\sim U([a,b])$      & $\dfrac{1}{b-a} I[a,b](x)$                                       & $ \dfrac{x-a}{b-a}$                                                                                                   & $\dfrac{b+a}{2}$    & $\dfrac{(b-a)^2}{12}$ \\[3ex]
+		\bfseries Esponenziale      & $X\sim E(\lambda)$    & $\lambda e^{-\lambda x} I_{\R^+}(x)$                             & $1-e^{-\lambda x}$                                                                                                    & $\frac{1}{\lambda}$ & $\frac{1}{\lambda^2}$ \\[1ex]
+		\bfseries Gaussiano         & $X\sim N(\mu,\sigma)$ & $\dfrac{1}{\sqrt{2\pi}~\sigma}e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}$ & $\displaystyle\int_{-\infty}^x \dfrac{1}{\sqrt{2\pi}~\sigma} e^{-\frac{1}{2}\left(\dfrac{x-\mu}{\sigma}\right)^2} dx$ & $\mu$               & $\sigma^2$            \\
+		\bottomrule
+	\end{tabular}
+	\caption{Tabella riassuntiva dei modelli di distribuzione.}
+\end{sidewaystable}
 
 \subsection{Modello bernoulliano}
 Il modello bernoulliano impone alle sue variabili aleatorie di avere specificazione binaria, cioè $D_X=\{0,1\}$ per qualunque variabile $X$.
@@ -24,9 +46,8 @@ La funzione di massa di probabilità di una variabile aleatoria bernoulliana è
 \subsubsection{Valore atteso}
 In analogia con la proprietà \ref{prop:indvalatt}, il valore atteso di una variabile aleatoria bernoulliana è $p$:
 \begin{equation*}
-	X\sim B(p) \quad\Leftrightarrow\quad \ev{X} = p
+	\ev{X} = p
 \end{equation*}
-
 E ovviamente
 \begin{equation*}
 	\ev{X^2}=\ev{X}
@@ -36,17 +57,17 @@ E ovviamente
 \subsubsection{Varianza}
 In analogia con la proprietà \ref{prop:indvar}, la varianza di una variabile aleatoria bernoulliana è $p(1-p)$:
 \begin{equation*}
-	X \sim {B(p)} \quad\Leftrightarrow\quad p(1-p)
+	\var(X) = p(1-p)
 \end{equation*}
 
 
 \subsubsection{Funzione di ripartizione}
-La funzione di ripartizione per variabili bernoulliane è uguale a $0$ per $x<0$, $1-p$ per $0\leq x<1$ e $1$ per $x\geq 1$.
+La funzione di ripartizione per variabili bernoulliane è ovviamente uguale a $0$ per $x<0$, $1-p$ per $0\leq x<1$ e $1$ per $x\geq 1$.
 
 
 
 \subsection{Modello binomiale}
-Il modello binomiale nasce da $n$ ripetizioni di un esperimento bernoulliano di probabilità $p$. Una variabile aleatoria binomiale corrisponde al numero di successi tra gli $n$ esperimenti.
+Il modello binomiale consiste in $n$ ripetizioni di un esperimento bernoulliano di probabilità $p$. Una variabile aleatoria binomiale corrisponde al numero di successi tra gli $n$ esperimenti.
 \begin{equation*}
 	X \sim B(n, p)\qquad D_X=\{0,1,\dots,n\}
 \end{equation*}
@@ -57,7 +78,7 @@ Per definizione:
 \begin{equation*}
 	p_X(i) = P(X=i)
 \end{equation*}
-Tale probabilità è l'intersezione degli eventi indipendenti che consistono nel successo dal primo all'$i$-esimo e insuccesso dall'$i+1$-esimo all'$n$-esimo. In quanto probabilità di eventi indipendenti può essere espressa come il prodotto delle singole probabilità. Ognuna delle probabilità di successo, per come è costruito il modello binomiale, è $p$, mentre ognuna delle probabilità di insuccesso è $1-p$. Ogni combinazione in cui $i$ esperimenti hanno successo e $n-i$ falliscono è valida, perciò:
+Tale probabilità è l'intersezione degli eventi indipendenti che consistono nel successo dal primo all'$i$-esimo e insuccesso dall'$i+1$-esimo all'$n$-esimo. In quanto probabilità di eventi indipendenti, essa può essere espressa come il prodotto delle singole probabilità. Ognuna delle probabilità di successo, per come è costruito il modello binomiale, è $p$, mentre ognuna delle probabilità di insuccesso è $1-p$. Ogni combinazione in cui $i$ esperimenti hanno successo e $n-i$ falliscono è valida, perciò:
 \begin{equation}
 	P(X=i) = \binom{n}{i} p^i(1-p)^{n-i}
 \end{equation}
@@ -109,7 +130,7 @@ dove $Y\sim B(n+m, p)$.
 
 
 
-\subsection{Modello uniforme discreto}
+\subsection{Modello uniforme discreto} \label{subsec:unifdisc}
 Nel modello uniforme discreto le variabili aleatorie consistono nell'esito di un esperimento da $n$ esiti possibili equiprobabili:
 \begin{equation*}
 	X\sim U(n)
@@ -117,7 +138,7 @@ Nel modello uniforme discreto le variabili aleatorie consistono nell'esito di un
 
 
 \subsubsection{Funzione di massa di probabilità}
-Essendo gli $n$ esiti equiprobabili, la funzione di massa di probabilità assume il valore $\frac{1}{n}$ per tutti i valori dell'input compresi tra gli esiti:
+Essendo gli $n$ esiti equiprobabili, la funzione di massa di probabilità assume il valore $\frac{1}{n}$ per tutti i valori dell'input compresi tra gli esiti (numerati qui da $1$ a $n$):
 \begin{equation*}
 	p_X(i) = P(X=i) = \frac{1}{n} I_{\{1,\dots,n\}}(i)
 \end{equation*}
@@ -295,7 +316,7 @@ Ergo
 
 Il modello di Poisson è strettamente legato al modello binomiale. Infatti:
 \begin{equation*}
-	X\sim B(n, p)\qquad\text{con }np=\lambda \\
+	X\sim B(n, p)\qquad\text{con }np=\lambda
 \end{equation*}
 Per $n\to+\infty$:
 \begin{align*}
@@ -379,7 +400,7 @@ Per $N+M\to+\infty$ il modello si semplifica in un modello binomiale:
 
 
 \subsection{Modello uniforme continuo}
-Il modello uniforme continuo estende al continuo i concetti visti alla sezione [ref{}] per il modello uniforme discreto e viene determinato da un intervallo equivalentemente aperto o chiuso:
+Il modello uniforme continuo estende al continuo i concetti visti alla sezione \ref{subsec:unifdisc} per il modello uniforme discreto e viene determinato da un intervallo equivalentemente aperto o chiuso:
 \begin{equation*}
 	X \sim U([a,b])
 \end{equation*}
@@ -395,7 +416,7 @@ essendo la densità costante, per $I\subseteq[a,b]$:
 \end{equation*}
 dove $|I|$ è la somma delle ampiezze $p-q$ degli intervalli disgiunti $[p,q]$ da cui $I$ è composto.
 
-Come di consueto, integrando nell'intero $\R$ la funzione di densità di probabilità si ottiene $1$:
+Come da definizione, integrando nell'intero $\R$ la funzione di densità di probabilità si ottiene $1$:
 \begin{equation*}
 	\int_{-\infty}^{+\infty}f_X(x) = \int_a^b\frac{1}{b-a}dx = \frac{1}{b-a} \eval{x}{a}{b} = 1
 \end{equation*}
@@ -449,7 +470,13 @@ E infine:
 \subsection{Modello esponenziale}
 Nel modello esponenziale la funzione di densità è esponenziale.
 \begin{equation*}
-	X\sim E(\lambda) \qquad f_X(x) = \lambda e^{-\lambda x} I_{\R^+}(x) \qquad \lambda\in\R^+ \quad D_X=\R^+
+	X\sim E(\lambda) \qquad \lambda\in\R^+ \quad D_X=\R^+
+\end{equation*}
+
+
+\subsubsection{Funzione di densità di probabilità}
+\begin{equation*}
+	f_X(x) = \lambda e^{-\lambda x} I_{\R^+}(x)
 \end{equation*}
 
 Il modello esponenziale si usa per modellare il tempo che intercorre tra due eventi.
@@ -483,22 +510,22 @@ Aggiungendo una funzione indicatrice:
 \subsubsection{Valore atteso}
 Applicando la definizione:
 \begin{align*}
-	\ev{X} & = \int_0^{+\infty} x f_X(x) dx                                                                    \\
-	       & = \int_0^{+\infty} x\lambda e^{-\lambda x}dx                                                      \\
-	       & = \eval{\lambda x e^{-\lambda x}}{0}{+\infty} - \int_0^{+\infty} e^{-\lambda x} dx \bc{per parti} \\
-	       & = \int_0^{+\infty} e^{-\lambda x} dx                                                              \\
-	       & = \frac{1}{\lambda} \int_0^{+\infty} \lambda e^{-\lambda x}                                       \\
-	       & = \frac{1}{\lambda}
+	\ev{X} & = \int_0^{+\infty} x f_X(x) dx                                                             \\
+	       & = \int_0^{+\infty} x\lambda e^{-\lambda x}dx                                               \\
+	       & = \eval{-x e^{-\lambda x}}{0}{+\infty} + \int_0^{+\infty} e^{-\lambda x} dx \bc{per parti} \\
+	       & = \int_0^{+\infty} e^{-\lambda x} dx                                                       \\
+	       & = \frac{1}{\lambda} \underbrace{\int_0^{+\infty} \lambda e^{-\lambda x}}_{1}               \\
+	       & = \frac{1}{\lambda} \bc{proprietà di $f_X$}
 \end{align*}
 
 
 \subsubsection{Varianza}
 Volendo usare la forma equivalente \eqref{eq:varalt}, si calcola innanzitutto il valore atteso di $X^2$:
 \begin{align*}
-	\ev{X^2} & = \int_0^{+\infty} x^2\lambda e^{-\lambda x} dx                                \\
-	         & = \eval{x^2 e^{-\lambda x}}{0}{+\infty} + \int_0^{+\infty} 2xe^{-\lambda x} dx \\
-	         & = 2\int_0^{+\infty} xe^{-\lambda x}dx                                          \\
-	         & = \frac{2}{\lambda} \int_0^{+\infty} \lambda xe^{-\lambda x}dx                 \\
+	\ev{X^2} & = \int_0^{+\infty} x^2\lambda e^{-\lambda x} dx                                 \\
+	         & = \eval{-x^2 e^{-\lambda x}}{0}{+\infty} + \int_0^{+\infty} 2xe^{-\lambda x} dx \\
+	         & = 2\int_0^{+\infty} xe^{-\lambda x}dx                                           \\
+	         & = \frac{2}{\lambda} \int_0^{+\infty} \lambda xe^{-\lambda x}dx                  \\
 	         & = \frac{2}{\lambda} \ev{X} = \frac{2}{\lambda^2}
 \end{align*}
 Da cui:
@@ -621,7 +648,7 @@ Da cui
 \subsection{Modello gaussiano}
 Una variabile $X$ di modello gaussiano (o normale), è una variabile aleatoria continua definita da due parametri:
 \begin{equation*}
-	X\sim G(\mu, \sigma)\qquad \mu\in\R,\sigma\in\R^+
+	X\sim N(\mu, \sigma)\qquad \mu\in\R,\sigma\in\R^+
 \end{equation*}
 
 
@@ -642,13 +669,13 @@ Modificare $\mu$ significa ovviamente traslare la curva parallelamente all'asse 
 
 Si può dimostrare che l'area sottesa alla funzione di densità è $1$:
 \begin{equation*}
-	\int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi}~\sigma} e^{-\left(\frac{x-\mu}{\sigma}\right)^2} dx = 1
+	\int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi}~\sigma} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2} dx = 1
 \end{equation*}
 
 
 \subsubsection{Funzione di ripartizione}
 \begin{equation*}
-	F_X(x) = \int_{-\infty}^x \frac{1}{\sqrt{2\pi}~\sigma} e^{-\left(\frac{x-\mu}{\sigma}\right)^2} dx
+	F_X(x) = \int_{-\infty}^x \frac{1}{\sqrt{2\pi}~\sigma} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2} dx
 \end{equation*}
 
 
@@ -665,7 +692,7 @@ Si può dimostrare che l'area sottesa alla funzione di densità è $1$:
 
 
 \subsubsection{Distribuzione normale standard}
-A partire da una variabile gaussiana $X$ si può costruire la variabile $Z$ come standardizzazione di $X$:
+A partire da una variabile gaussiana $X$ si può costruire la variabile $Z$ come standardizzazione (normalizzazione) di $X$:
 \begin{equation*}
 	Z = \frac{x-\mu}{\sigma}
 \end{equation*}
@@ -755,24 +782,3 @@ Per il teorema centrale del limite, variabili aleatorie bernoulliane di parametr
 	X = \sum_{i=1}^n X_i \modsim N(np, \sqrt{np(1-p)}) \\
 	\frac{x-np}{\sqrt{np(1-p)})} \modsim N(0,1)
 \end{gather*}
-
-
-
-\begin{sidewaystable}
-	\centering
-	\begin{tabular}{llllll}
-		\toprule
-		\bfseries Modello           & \bfseries Parametri   & \bfseries F. di massa/densità                                    & \bfseries F. di ripartizione                                                                               & \bfseries V. atteso & \bfseries Varianza         \\
-		\midrule
-		\bfseries Bernoulli         & $X\sim B(p)$          & $p^x(1-p)^{1-x}I_{\{0,1\}}(x)$                                   & $\begin{cases}0\quad & x<0\\1-p\quad & 0\leq x<1\\1\quad & x\leq 1\end{cases}$                                                                              & $p$                 & $p(1-p)$                   \\[5ex]
-		\bfseries Binomiale         & $X\sim B(n,p)$        & $\displaystyle\binom{n}{i} p^i(1-p)^{n-i}$                       & $\begin{cases}\sum_{i=0}^{\floor{x}}\binom{n}{i} p^i (1-p)^{n-i}\quad & x\leq n \\1 & x>n \end{cases}$                                                                              & $np$                & $np(1-p)$                  \\[3ex]
-		\bfseries Uniforme discreto & $X\sim U(n)$          & $\dfrac{1}{n} I_{\{1,\dots,n\}}(i)$                              & $\dfrac{\floor{x}}{n}$                                                                                     & $\dfrac{n+1}{2}$    & $\dfrac{n^2-1}{12}$        \\[2ex]
-		\bfseries Geometrico        & $X\sim G(p)$          & $(1-p)^ip ~ I_\N (i)$                                            & $1 - (1-p)^{n+1}  $                                                                                        & $ \dfrac{1-p}{p}$   & $ \dfrac{(1-p)(2-p)}{p^2}$ \\[1ex]
-		\bfseries Poisson           & $X\sim P(\lambda)$    & $e^{-\lambda}\frac{\lambda^i}{i!} ~ I_\N(i)$                     & $\dots$                                                                                                    & $\lambda$           & $\lambda$                  \\[2ex]
-		\bfseries Ipergeometrico    & $X\sim ?(N,M,n)$      & $\dfrac{\binom{N}{i}\binom{M}{n-i}}{\binom{N+M}{n}}$             & $\dots$                                                                                                    & $np$                & $\dfrac{NM}{(N+M)^2}$      \\[2ex]
-		\bfseries Uniforme continuo & $X\sim U([a,b])$      & $\dfrac{1}{b-a} I[a,b](x)$                                       & $ \dfrac{x-a}{b-a}$                                                                                        & $\dfrac{b+a}{2}$    & $\dfrac{(b-a)^2}{12}$      \\[3ex]
-		\bfseries Esponenziale      & $X\sim E(\lambda)$    & $\dots$                                                          & $1-e^{-\lambda x}$                                                                                         & $\frac{1}{\lambda}$ & $\frac{2}{\lambda^2}$      \\[1ex]
-		\bfseries Gaussiano         & $X\sim G(\mu,\sigma)$ & $\dfrac{1}{\sqrt{2\pi}~\sigma}e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}$ & $\displaystyle\int_{-\infty}^x \dfrac{1}{\sqrt{2\pi}~\sigma} e^{-\left(\dfrac{x-\mu}{\sigma}\right)^2} dx$ & $\mu$               & $\sigma^2$                 \\
-		\bottomrule
-	\end{tabular}
-\end{sidewaystable}

@@ -1,5 +1,5 @@
 \section{Probabilità condizionata}
-Il concetto di probabilità condizionata restringe lo spazio campionario all'evento condizionante.
+La probabilità condizionata vede protagonisti un evento condizionato e un evento condizionante e, concettualmente, restringe lo spazio campionario all'evento condizionante.
 
 \begin{defin}
 	La probabilità condizionata da un evento $F$ (evento condizionante) su un evento $E$ (evento condizionato) viene definita, quando $F$ non è impossibile (ossia per $P(F)\neq 0$), come segue:
@@ -8,8 +8,8 @@ Il concetto di probabilità condizionata restringe lo spazio campionario all'eve
 	\end{equation*}
 \end{defin}
 
-Dalla definizione di probabilità condizionata deriva la \textbf{regola di fattorizzazione}:
-\begin{equation}
+Dalla definizione di probabilità condizionata deriva la seguente \textbf{regola di fattorizzazione}:
+\begin{equation} \label{eq:regfatt}
 	P(E \cap F)=P(E\mid F)\cdot P(F)
 \end{equation}
 
@@ -18,7 +18,7 @@ Dalla definizione di probabilità condizionata deriva la \textbf{regola di fatto
 \subsection{Teorema delle probabilità totali}
 
 \subsubsection{Caso particolare}
-Dati eventi $E, F\in \A$, l'evento $E$ può essere scritto come la parte di $E$ che non contiene elementi di $F$, ossia $E\cap \bar F$, unita disgiuntamente a $E \cap F$:
+Dati eventi $E, F\in \A$, l'evento $E$ può essere scritto come la parte di $E$ che non contiene elementi di $F$, ossia $E\cap \bar F$, unita disgiuntamente alla parte che ne contiene, ossia $E \cap F$:
 \begin{align*}
 	(E \cap \bar F) \cap (E \cap F) & = E \cap (F \cap \bar F)\bc{proprietà distributiva}  \\
 	                                & = E \cap \emptyset = \emptyset                       \\[2ex]
@@ -30,13 +30,13 @@ Avendo espresso $E$ come unione di eventi disgiunti, si può applicare il terzo 
 \begin{equation*}
 	P(E) = P((E \cap \bar F)\cup(E \cap F)) = P(E \cap \bar F)+P(E \cap F)
 \end{equation*}
-e, per la regola di fattorizzazione, assunto $P(F)\neq 0 \land P(\bar F)\neq 0$:
+e, per la regola \eqref{eq:regfatt} di fattorizzazione, assunto $P(F)\neq 0 \land P(\bar F)\neq 0$:
 \begin{equation*}
 	=P(E\mid \bar F)\cdot P(\bar F) + P(E \mid F)\cdot P(F)
 \end{equation*}
 
 \subsubsection{Forma generale}
-\begin{teor}
+\begin{teor}[delle probabilità totali]
 	Data una partizione di $\Omega$ composta da eventi non impossibili $F_1,\dots, F_n$ e un evento $E$:
 	\begin{equation*}
 		P(E)= \sum_{i=1}^n P(E \mid F_i)\cdot P(F_i)
@@ -45,7 +45,7 @@ e, per la regola di fattorizzazione, assunto $P(F)\neq 0 \land P(\bar F)\neq 0$:
 \begin{proof}
 	La dimostrazione avviene in analogia con il caso particolare. Questa volta, tuttavia, gli eventi della partizione sono disgiunti per ipotesi e non in quanto complementari:
 	\begin{equation*}
-		P(E)=P \left(\bigcup_{i=1}^n (E\cap F_i) \right) = \sum_{i=1}^n P(E\cap F_i) = \sum_{i=1}^n P(E \mid F_i)\cdot P(F_i)
+		P(E)=P \left(\bigcup_{i=1}^n (E\cap F_i) \right) = \sum_{i=1}^n P(E\cap F_i) = \sum_{i=1}^n P(E \mid F_i)\cdot P(F_i) \qedhere
 	\end{equation*}
 \end{proof}
 
@@ -61,7 +61,7 @@ Nelle stesse ipotesi del teorema delle probabilità totali si dimostra un altro 
 
 \begin{proof}
 	\begin{equation*}
-		P(F_j\mid E)=\frac{P(F_j \cap E)}{P(E)}=\frac{P(E\mid F_j)\cdot P(F_j)}{\sum\limits_{i=1}^n P(E \mid F_i)\cdot P(F_i)}
+		P(F_j\mid E)=\frac{P(F_j \cap E)}{P(E)}=\frac{P(E\mid F_j)\cdot P(F_j)}{\sum\limits_{i=1}^n P(E \mid F_i)\cdot P(F_i)} \qedhere
 	\end{equation*}
 \end{proof}
 
@@ -93,8 +93,8 @@ e ovviamente, se $P(E)>0$:
 	\begin{align*}
 		P(E \cap \bar F) & = P(E) - P(E \cap F)    \bc{terzo assioma}                          \\
 		                 & = P(E) - P(E)\cdot P(F) \bc{in quanto $E$ ed $F$ sono indipendenti} \\
-		                 & = P(E)(1-P(F))          \bc{teorema \ref{t:probcompl}}              \\
-		                 & = P(E)\cdot P(\bar F)
+		                 & = P(E)(1-P(F))                                                      \\
+		                 & = P(E)\cdot P(\bar F)   \bc{teorema \ref{t:probcompl}} \qedhere
 	\end{align*}
 \end{proof}
 
@@ -120,7 +120,7 @@ Per quanto riguarda $E$, $F\cup G$:
 
 \subsubsection{\texorpdfstring{$n$}{n}-upla di eventi indipendenti}
 \begin{defin}[$n$-upla di eventi indipendenti]
-	Eventi $E_1,\dots,E_n$ si dicono indipendenti se e solo se comunque sceltone $r$ la probabilità della loro intersezione è uguale al prodotto della probabilità dei singoli.
+	Eventi $E_1,\dots,E_n$ si dicono indipendenti se e solo se comunque apportata su di essi una selezione di $r$ eventi la probabilità dell'intersezione degli eventi selezionati è uguale al prodotto della probabilità dei singoli.
 	\begin{equation*}
 		\forall r<n\in\mathbb{N}~\forall~1\leq \alpha_1 \leq\dots\leq\alpha_r\leq n \qquad P \left(\bigcap_{i=1}^r E_{\alpha_i} \right)=\prod_{i=1}^r P(E_{\alpha_i})
 	\end{equation*}

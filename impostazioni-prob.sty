@@ -36,13 +36,15 @@
 \DeclareMathOperator{\MSE}{MSE}
 \newcommand{\justif}[2]{& #1 & \text{#2}}
 \newcommand{\bc}[1]{\justif{\quad}{#1}}
+\newcommand{\qedbc}{& & \qedhere}
 \newcommand{\eval}[3]{\left. #1 \right\rvert_{#2}^{#3}}
 \newcommand{\modsim}{\overset{\cdot}{\sim}}
+\newcommand{\bigland}{\bigwedge}
 
 % text mode commands
 \newcommand{\qt}[1]{``#1''}
 \newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}%
-  #1\ignorespaces
+	#1\ignorespaces
 }
 
 \usepackage[hidelinks]{hyperref}

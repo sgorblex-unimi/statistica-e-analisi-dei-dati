@@ -1,4 +1,8 @@
 \section{Variabili aleatorie continue}
+\begin{defin}[variabile aleatoria continua]
+	Una variabile aleatoria $X$ è continua se e solo se non è discreta, ossia il suo supporto non è numerabile.
+\end{defin}
+
 \begin{defin}[funzione di densità di probabilità]
 	Data una variabile aleatoria $X$, la funzione di densità di probabilità di $X$ è una funzione $f_X:\R\to\R^+$ integrabile e tale che:
 	\begin{equation*}
@@ -16,7 +20,7 @@ O, in un intervallo $[a,b]$:
 \end{equation*}
 che è equivalente a quella dell'intervallo $(a,b)$.
 
-La proprietà della definizione non è altro che la conseguenza del primo assioma di Kolmogorov:
+La proprietà della definizione non è altro che la conseguenza del primo assioma di Kolmogorov esteso al continuo:
 \begin{equation*}
 	P(X\in\R) = \int_{-\infty}^{+\infty} f_X(x)dx = \int_\R f_X(x)dx = 1
 \end{equation*}
@@ -42,14 +46,14 @@ Per il teorema fondamentale del calcolo integrale, da ciò deriva che la funzion
 
 \subsection{Valore atteso}
 \begin{defin}
-	Il valore atteso per le variabili aleatorie continue è così definito:
+	Il valore atteso per variabili aleatorie continue è così definito:
 	\begin{equation*}
 		\ev{X}=\int_{-\infty}^{+\infty} x f_X(x)dx
 	\end{equation*}
 \end{defin}
 
 \begin{prop} \label{prop:valatnonneg}
-	Per le variabili aleatorie che non assumono specificazioni negative:
+	Per variabili aleatorie che non assumono specificazioni negative:
 	\begin{equation*}
 		\forall x<0 \qquad f_X(x)=0
 	\end{equation*}
@@ -61,7 +65,7 @@ Per il teorema fondamentale del calcolo integrale, da ciò deriva che la funzion
 
 \subsection{Disuguaglianza di Markov}
 \begin{teor}[Disuguaglianza di Markov] \label{teor:markov}
-	Sia $X$ una variabile aleatoria non negativa. Allora per ogni $a$ reale:
+	Sia $X$ una variabile aleatoria non negativa. Allora per ogni $a$ reale positivo:
 	\begin{equation*}
 		P(X\geq a) \leq \frac{\ev{X}}{a}
 	\end{equation*}
@@ -107,7 +111,7 @@ La disuguaglianza di Tchebyshev dà una limitazione superiore alla probabilità 
 	\end{equation*}
 \end{proof}
 
-Un'interessante applicazione della disuguaglianza di Tchebyshev è quella che riguarda la deviazione standard, che riguarda l'andamento della probabilità allontanandosi dal valore atteso di quantità ripetute della deviazione standard:
+Un'interessante applicazione della disuguaglianza di Tchebyshev è quella che riguarda la deviazione standard, che esprime l'andamento della probabilità allontanandosi dal valore atteso di quantità ripetute della deviazione standard:
 \begin{equation*}
 	P(\abs{X-\mu}\geq k\sigma)\leq\frac{1}{k^2}
 \end{equation*}

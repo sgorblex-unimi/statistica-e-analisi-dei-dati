@@ -1,5 +1,5 @@
 \section{Definizioni}
-Si tratta la definizione assiomatica di probabilità.
+La definizione assiomatica della probabilità riassume in pochi punti quei concetti che si possono definire intuitivi nel calcolo delle probabilità.
 
 
 
@@ -7,17 +7,15 @@ Si tratta la definizione assiomatica di probabilità.
 \begin{defin}
 	Scelto un insieme $\Omega$ detto spazio campionario o degli eventi, si dice esito un elemento $\omega\in\Omega$ dell'insieme ed evento un suo sottoinsieme $E\subseteq\Omega$.
 
-	L'algebra degli eventi $\A$ è contenuta nell'insieme delle parti dello spazio campionario ed è tale che:
-
-	\begin{itemize}
-		\item $\Omega\in \A$
-		\item $\forall E\subseteq\Omega\qquad E\in\A\Rightarrow \bar E\in\A$
-		\item $\forall E, F\subseteq\Omega\qquad E,F\in\A\Rightarrow E\cup F\in\A$\\[1ex]
-		      da cui\\[1ex]
-		      $\forall E_1,\dots E_n\in\Omega\qquad \forall i~E_i\in\A\Rightarrow \bigcup\limits_{i=1}^n E_i \in\A$
-		\item l'ultima condizione può essere estesa a insiemi infiniti di eventi
-	\end{itemize}
-	Equivalentemente, $\A$ è una $\sigma$-algebra su $\Omega$.
+\end{defin}
+\begin{defin}
+	Sia $\A\in2^\Omega$ una collezione di sottoinsiemi di $\Omega$. Allora $\A$ è un'algebra se
+	\begin{align*}
+		 & \bullet ~ \Omega\in \A                                                                                            \\
+		 & \bullet ~ \forall E\subseteq\Omega\qquad E\in\A\Rightarrow \bar E\in\A \qquad\text{con }\bar E:=\Omega\setminus E \\
+		 & \bullet ~ \forall E_1,\dots E_n\in\Omega\qquad \forall i~E_i\in\A\Rightarrow \bigcup\limits_{i=1}^n E_i \in\A
+	\end{align*}
+	$\A$ è una $\sigma$-algebra su $\Omega$ se l'ultima condizione si può estendere a unioni numerabili qualsiasi.
 \end{defin}
 
 
@@ -29,7 +27,7 @@ La probabilità viene definita come una funzione di un'algebra degli eventi $\A$
 	P:\A\to\R
 \end{equation*}
 
-I seguenti assiomi di Kolmogorov decretano le proprietà che la probabilità rispetta:
+I seguenti assiomi, detti di Kolmogorov, decretano le proprietà che la probabilità rispetta:
 
 
 \subsubsection{Primo assioma}
@@ -47,6 +45,7 @@ La probabilità dello spazio campionario è $1$:
 
 
 \subsubsection{Terzo assioma}
+La probabilità dell'unione di eventi mutuamente esclusivi, cioè disgiunti (intuitivamente, il cui avvenire dell'uno esclude l'avvenire dell'altro), è uguale alla somma delle probabilità dei singoli:
 \begin{equation*}
 	\forall E_1,\dots,E_n\in\A\qquad \forall i,j~E_i\cap E_j = \emptyset \Rightarrow P\left( \bigcup_{i=1}^n E_i \right)=\sum_{i=1}^n P(E_i)
 \end{equation*}
@@ -54,11 +53,13 @@ La probabilità dello spazio campionario è $1$:
 
 
 \subsection{Teoremi elementari}
-Dagli assiomi di Kolmogorov derivano alcune proprietà elementari, dimostrate tramite teoremi.
+Dagli assiomi di Kolmogorov derivano alcune proprietà elementari facilmente dimostrabili.
 
 
 \subsubsection{Probabilità dell'evento complementare}
-Dato un evento $E\in\A$, l'evento complementare è l'evento $\bar E := \Omega\setminus E$.
+\begin{defin}
+	Dato un evento $E\in\A$, l'evento complementare è l'evento $\bar E := \Omega\setminus E$.
+\end{defin}
 \begin{teor}[probabilità dell'evento complementare] \label{t:probcompl}
 	Dato un evento $E$, se la probabilità di $E$ è $P(E)$, la probabilità dell'evento complementare di $E$ è $1-P(E)$:
 	\begin{equation*}
@@ -78,7 +79,7 @@ Dato un evento $E\in\A$, l'evento complementare è l'evento $\bar E := \Omega\se
 	\end{align*}
 	ergo:
 	\begin{equation*}
-		P(\bar E)=1-P(E)
+		P(\bar E)=1-P(E) \qedhere
 	\end{equation*}
 \end{proof}
 
@@ -95,27 +96,27 @@ Dato un evento $E\in\A$, l'evento complementare è l'evento $\bar E := \Omega\se
 		E\cup F=E \cup (\bar E\cap F) \\[1ex]
 	\end{equation*}
 
-	passando alle probabilità:
-	\begin{alignat*}{2}
-		P(E\cup F) & = P(E)+P(\bar E\cap F)                                              \\
-		           & = P(E)+P(\bar E\cap F)+P(E\cap F)-P(E\cap F)                        \\
-		           & = P(E)+P((\bar E\cap F)\cup (E\cap F))-P(E\cap F)	\bc{terzo assioma} \\
-		           & = P(E)+P(F)-P(E\cap F)
-	\end{alignat*}
+	Passando alle probabilità:
+	\begin{align*}
+		P(E\cup F) & = P(E)+P(\bar E\cap F)                                               \\
+		           & = P(E)+P(\bar E\cap F)+P(E\cap F)-P(E\cap F)                         \\
+		           & = P(E)+P((\bar E\cap F)\cup (E\cap F))-P(E\cap F) \bc{terzo assioma} \\
+		           & = P(E)+P(F)-P(E\cap F)                            \qedbc
+	\end{align*}
 \end{proof}
 
 \subsubsection{Probabilità dell'evento vuoto}
-La probabilità dell'evento vuoto ($\emptyset$) è $0$. Per questo motivo l'evento vuoto viene detto evento impossibile.
+La probabilità dell'evento vuoto ($\emptyset$) è $0$. Un evento con probabilità nulla viene detto evento impossibile.
 \begin{equation*}
 	P(\emptyset)=0
 \end{equation*}
 
 \begin{proof}
 	\begin{align*}
-		P(\Omega)    & = 1 \bc{secondo assioma}                      \\
-		P(\emptyset) & = P(\bar\Omega)                               \\
-		             & = 1 - P(\Omega)\bc{teorema \ref{t:probcompl}} \\
-		             & = 1 - 1 = 0
+		P(\Omega)    & = 1 \bc{secondo assioma}                       \\
+		P(\emptyset) & = P(\bar\Omega)                                \\
+		             & = 1 - P(\Omega) \bc{teorema \ref{t:probcompl}} \\
+		             & = 1 - 1 = 0     \qedbc
 	\end{align*}
 \end{proof}
 
@@ -146,7 +147,7 @@ Un evento elementare è composto da un singolo esito, cioè è un singoletto del
 	\end{align*}
 	Ergo:
 	\begin{equation*}
-		\forall e_i ~ P(e_i)=p=\frac{1}{n}
+		\forall e_i ~ P(e_i)=p=\frac{1}{n} \qedhere
 	\end{equation*}
 \end{proof}
 
@@ -159,6 +160,6 @@ Gli eventi non elementari possono essere espressi come unione di eventi elementa
 \end{teor}
 \begin{proof}
 	\begin{equation*}
-		P(E)= \sum_{i=1}^{|E|} P(e_i) = \frac{|E|}{n}
+		P(E)= \sum_{i=1}^{|E|} P(e_i) = \frac{|E|}{n} \qedhere
 	\end{equation*}
 \end{proof}

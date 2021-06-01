@@ -10,10 +10,12 @@
 	Una variabile aleatoria è discreta se e solo se il suo supporto è numerabile.
 \end{defin}
 
-Per esempio, se $\Omega$ è l'insieme di esiti del lancio di due dadi, $X$ può essere definito come la somma degli esiti dei due dadi. Le immagini di $X$ non sono equiprobabili. Se per $X$ si sceglie il valore del primo dado, le immagini sono equiprobabili.
+\begin{examp}
+	Se $\Omega$ è l'insieme di esiti del lancio di due dadi, una possibile variabile aleatoria $X$ è la somma degli esiti dei due dadi. In questo caso immagini di $X$ non sono equiprobabili. Se invece per $X$ si sceglie il valore del primo dado, le immagini sono equiprobabili.
+\end{examp}
 
 \begin{defin}[funzione indicatrice]
-	Dato $A\subseteq D$ (dove $D$ è un qualunque insieme), la funzione indicatrice (o caratteristica) di $A$ è la funzione $I:D\to \{0,1\}$ che associa a un elemento di $D$ il numero $1$ se l'elemento appartiene ad $A$, o $0$ altrimenti:
+	Siano $A$ e $D$ insiemi tali che $A\subseteq D$. La funzione indicatrice (o caratteristica) di $A$ rispetto a $D$ è la funzione $I:D\to \{0,1\}$ che associa a un elemento di $D$ il numero $1$ se l'elemento appartiene ad $A$, o $0$ altrimenti:
 	\begin{equation*}
 		I_A(x) := \begin{cases}
 			1 \qquad x\in A \\
@@ -30,21 +32,11 @@ Per esempio, se $\Omega$ è l'insieme di esiti del lancio di due dadi, $X$ può 
 
 \subsection{Funzione di ripartizione}
 \begin{defin}[funzione di ripartizione] \label{def:fripar}
-	Data una variabile aleatoria $X$, la funzione di ripartizione $F_X:\R\to[0,1]$ (o di distribuzione cumulativa) è la funzione che associa a un valore $x\in\R$ la probabilità che l'esito di $X$ ne sia minore o uguale:
+	Data una variabile aleatoria $X$, la funzione di ripartizione (o di distribuzione cumulativa) $F_X:\R\to[0,1]$ è la funzione che associa a un valore $x\in\R$ la probabilità che l'esito di $X$ ne sia minore o uguale:
 	\begin{equation*}
 		\forall x\in\R\quad F_X(x):=P(X\leq x)
 	\end{equation*}
 \end{defin}
-
-% TODO: spiegare le formule seguenti
-\begin{gather*}
-	a\leq b \\
-	x\sim F_X \\[1ex]
-	\{x\leq b\}=\{x\leq a\}\cup\{a<x\leq b\} \\[1ex]
-	P(x\leq b)=P(x\leq a)+P(a<x\leq b) \\[1ex]
-	F_X(b)=F_X(a)+P(a<x\leq b) \\[1ex]
-	P(a<x\leq b)=F_X(b)-F_X(a)
-\end{gather*}
 
 La funzione di ripartizione si annulla quandunque l'input è minore della minima specificazione.
 
@@ -130,7 +122,7 @@ In generale, non è detto che la sommatoria che definisce il valore atteso conve
 
 
 \subsection{Varianza di una variabile aleatoria}
-\begin{defin}[varianza di una variabile aleatoria]
+\begin{defin}[varianza di una variabile aleatoria] \label{def:var}
 	La varianza di una variabile aleatoria $X$ è definita come segue:
 	\begin{equation*}
 		\var(X) = \sigma^2_X := \ev{(X-\ev{X})^2}
@@ -140,7 +132,7 @@ In generale, non è detto che la sommatoria che definisce il valore atteso conve
 \begin{defin}[deviazione standard di una variabile aleatoria]
 	La deviazione standard di una variabile aleatoria $X$ è così definita:
 	\begin{equation*}
-		\sigma(X)=\sqrt{\var(X)}
+		\sigma(X) = \sigma_X :=\sqrt{\var(X)}
 	\end{equation*}
 \end{defin}
 
@@ -154,9 +146,10 @@ In generale, non è detto che la sommatoria che definisce il valore atteso conve
 \end{prop}
 \begin{proof}
 	\begin{align*}
-		\var(X) & = \ev{X^2-2\mu X+\mu^2}         \bc{sviluppando il quadrato}     \\
-		        & = \ev{X^2}-2\mu \ev{X}+\mu^2    \bc{linearità del valore atteso} \\
-		        & = \ev{X^2}-2\mu^2+\mu^2         \bc{definizione di $\mu$}        \\
+		\var(X) & = \ev{(X-\ev{X})^2}          \bc{definizione \ref{def:var}}   \\
+		        & = \ev{X^2-2\mu X+\mu^2}      \bc{sviluppando il quadrato}     \\
+		        & = \ev{X^2}-2\mu \ev{X}+\mu^2 \bc{linearità del valore atteso} \\
+		        & = \ev{X^2}-2\mu^2+\mu^2      \bc{definizione di $\mu$}        \\
 		        & = \ev{x^2}- \ev{x}^2
 	\end{align*}
 \end{proof}
@@ -204,7 +197,7 @@ In generale, non è detto che la sommatoria che definisce il valore atteso conve
 
 Il limite per $y$ che tende a $+\infty$ della funzione di ripartizione congiunta di $X$ e $Y$ è uguale alla funzione di ripartizione di $X$. In questo caso si dice che $F_X(x)$ è la distribuzione marginale rispetto a $X$:
 \begin{equation} \label{eq:distrmargin}
-	\lim_{y\to+\infty}F_{X,Y}(x, y)=\lim_{y\to+\infty}P(X\leq x,Y\leq y)=\lim_{y\to+\infty}P(X\leq x)=F_X(x)
+	\lim_{y\to+\infty}F_{X,Y}(x, y) = \lim_{y\to+\infty}P(X\leq x,Y\leq y) = P(X\leq x) = F_X(x)
 \end{equation}
 Analogo vale, ovviamente, per $x\to+\infty$.
 
@@ -252,9 +245,9 @@ La definizione è equivalente alla seguente proprietà della funzione di massa d
 
 	L'implicazione inversa parte dalla ricostruzione di $A$ e $B$ come unioni di singoletti:
 	\begin{align*}
-		P(X\in A, Y\in B) & = \sum_{a\in A}\sum_{b\in B} p_{X,Y}(a,b)              \\
-		                  & = \sum_{a\in A}\sum_{b\in B} p_X(a)p_Y(b) \bc{ipotesi} \\
-		                  & = \sum_{a\in A}p_X(a) \sum_{b\in B} p_Y(b)             \\
+		P(X\in A, Y\in B) & = \sum_{a\in A}\sum_{b\in B} p_{X,Y}(a,b)                           \\
+		                  & = \sum_{a\in A}\sum_{b\in B} p_X(a)p_Y(b) \bc{ipotesi}              \\
+		                  & = \left(\sum_{a\in A}p_X(a)\right)\left(\sum_{b\in B} p_Y(b)\right) \\
 		                  & = P(X\in A)P(Y\in B)
 	\end{align*}
 \end{proof}
@@ -295,7 +288,7 @@ I concetti visti per coppie di variabili aleatorie si estendono a vettori aleato
 \begin{defin}
 	Variabili aleatorie $X_1,\dots,X_n$ sono indipendenti se e solo se
 	\begin{equation*}
-		\forall A_1,\dots,A_n\subseteq\R \qquad P\left(\bigcap_{i=1}^n X_i\in A_i\right) = \prod_{i=1}^n P(X_i\in A_i)
+		\forall A_1,\dots,A_n\subseteq\R \qquad P\left(\bigland_{i=1}^n X_i\in A_i\right) = \prod_{i=1}^n P(X_i\in A_i)
 	\end{equation*}
 \end{defin}
 
@@ -337,7 +330,7 @@ Di conseguenza, se si può esprimere una variabile $X$ come la somma di variabil
 
 
 \subsubsection{Altre proprietà}
-Il seguente risultato è una generalizzazione della varianza, utile a valutare quanto un'approssimazione $c$ di $X$ è buona. La migliore approssimazione è $c=\ev{X}$, in coerenza con il senso semantico di $\ev{X}$.
+Il seguente risultato è una generalizzazione della varianza, utile a valutare quanto un'approssimazione $c$ di $X$ è buona. La migliore approssimazione è $c=\ev{X}$, in coerenza con l'interpretazione semantica di $\ev{X}$.
 \begin{prop}
 	\begin{equation*}
 		\ev{(X-c)^2}=\var(X)+(\mu-c)^2\geq\var(X)
@@ -428,7 +421,7 @@ Generalizzando:
 \end{proof}
 
 \begin{prop}
-	La covarianza tra una variabile aleatoria $X$ e se stessa è la varianza di $X$:
+	La covarianza tra una variabile aleatoria $X$ e se stessa è uguale alla varianza di $X$:
 	\begin{equation*}
 		\cov(X,X)=\var(X)
 	\end{equation*}
@@ -453,7 +446,7 @@ Generalizzando:
 		\var(X+Y) & = \ev{(X+Y)^2} - \ev{X+Y}^2                                            \\
 		          & = \ev{X^2+2XY+Y^2}-(\ev{X}+\ev{Y})^2                                   \\
 		          & = \ev{X^2} + 2\ev{XY} + \ev{Y^2} - \ev{X}^2 - 2\ev{X}\ev{Y} - \ev{Y}^2 \\
-		          & = \ev{X^2} - \ev{X}^2 + \ev{Y^2} - \ev{Y}^2 + 2(\ev{XY}-\ev{X}-\ev{Y}) \\
+		          & = \ev{X^2} - \ev{X}^2 + \ev{Y^2} - \ev{Y}^2 + 2(\ev{XY}-\ev{X}\ev{Y})  \\
 		          & = \var(X) + \var(Y) + 2\cov(X,Y)
 	\end{align*}
 \end{proof}
@@ -465,7 +458,6 @@ Generalizzando:
 	\end{equation*}
 \end{prop}
 \noindent
-La dimostrazione è ovvia
 
 \begin{teor}
 	Il valore atteso del prodotto di variabili aleatorie discrete indipendenti è uguale al prodotto dei rispettivi valori attesi:
@@ -505,7 +497,7 @@ La dimostrazione è ovvia
 \begin{proof}
 	Applicando la proprietà \ref{prop:varsum}:
 	\begin{align*}
-		\var\left(\sum_{i=1}^n X_i\right) & = \sum_{i=1}^n\var(X_i)+2\sum_{i\neq j}\cov(X_i,X_j) \\
+		\var\left(\sum_{i=1}^n X_i\right) & = \sum_{i=1}^n\var(X_i)+\sum_{i\neq j}\cov(X_i,X_j) \\
 		                                  & = \sum_{i=1}^n \var(X_i)
 	\end{align*}
 \end{proof}
