@@ -17,7 +17,7 @@ I modelli di distribuzione consistono in risultati notevoli corrispondenti a var
 		\bfseries Ipergeometrico    & $X\sim ?(N,M,n)$      & $\dfrac{\binom{N}{i}\binom{M}{n-i}}{\binom{N+M}{n}}$             & $\dots$                                                                                                               & $np$                & $\dfrac{NM}{(N+M)^2}$ \\[2ex]
 		\bfseries Uniforme continuo & $X\sim U([a,b])$      & $\dfrac{1}{b-a} I[a,b](x)$                                       & $ \dfrac{x-a}{b-a}$                                                                                                   & $\dfrac{b+a}{2}$    & $\dfrac{(b-a)^2}{12}$ \\[3ex]
 		\bfseries Esponenziale      & $X\sim E(\lambda)$    & $\lambda e^{-\lambda x} I_{\R^+}(x)$                             & $1-e^{-\lambda x}$                                                                                                    & $\frac{1}{\lambda}$ & $\frac{1}{\lambda^2}$ \\[1ex]
-		\bfseries Gaussiano         & $X\sim N(\mu,\sigma)$ & $\dfrac{1}{\sqrt{2\pi}~\sigma}e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}$ & $\displaystyle\int_{-\infty}^x \dfrac{1}{\sqrt{2\pi}~\sigma} e^{-\frac{1}{2}\left(\dfrac{x-\mu}{\sigma}\right)^2} dx$ & $\mu$               & $\sigma^2$            \\
+		\bfseries Gaussiano         & $X\sim N(\mu,\sigma)$ & $\dfrac{1}{\sqrt{2\pi}~\sigma}e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}$ & $\displaystyle\int_{-\infty}^x \dfrac{1}{\sqrt{2\pi}~\sigma} e^{-\frac{1}{2}\left(\dfrac{y-\mu}{\sigma}\right)^2} dy$ & $\mu$               & $\sigma^2$            \\
 		\bottomrule
 	\end{tabular}
 	\caption{Tabella riassuntiva dei modelli di distribuzione.}
@@ -675,7 +675,7 @@ Si può dimostrare che l'area sottesa alla funzione di densità è $1$:
 
 \subsubsection{Funzione di ripartizione}
 \begin{equation*}
-	F_X(x) = \int_{-\infty}^x \frac{1}{\sqrt{2\pi}~\sigma} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2} dx
+	F_X(x) = \int_{-\infty}^x \frac{1}{\sqrt{2\pi}~\sigma} e^{-\frac{1}{2}\left(\frac{y-\mu}{\sigma}\right)^2} dy
 \end{equation*}
 
 
