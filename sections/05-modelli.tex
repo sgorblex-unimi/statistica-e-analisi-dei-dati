@@ -3,6 +3,8 @@
 I modelli di distribuzione consistono in risultati notevoli corrispondenti a variabili aleatorie che rispettano determinate definizioni ricorrenti.
 
 % TODO: bisognerebbe aggiungere anche il supporto, tuttavia non riesco a sistemare la geometria della pagina in un modo soddisfacente che non causi warning.
+% TODO: per quelli non visti, è sufficiente fare le somme delle funzioni di massa. Per il problema di spazio già citato, per ora sono omesse
+% TODO: controllare la mancanza di funzioni indicatrici
 \begin{sidewaystable}
 	\centering
 	\begin{tabular}{llllll}
@@ -11,11 +13,11 @@ I modelli di distribuzione consistono in risultati notevoli corrispondenti a var
 		\midrule
 		\bfseries Bernoulli         & $X\sim B(p)$          & $p^x(1-p)^{1-x}I_{\{0,1\}}(x)$                                   & $\begin{cases}0\quad & x<0\\1-p\quad & 0\leq x<1\\1\quad & x\leq 1\end{cases}$                                                                                           & $p$                 & $p(1-p)$              \\[5ex]
 		\bfseries Binomiale         & $X\sim B(n,p)$        & $\displaystyle\binom{n}{i} p^i(1-p)^{n-i}$                       & $\begin{cases}\sum_{i=0}^{\floor{x}}\binom{n}{i} p^i (1-p)^{n-i}\quad & x\leq n \\1 & x>n \end{cases}$                                                                                           & $np$                & $np(1-p)$             \\[3ex]
-		\bfseries Uniforme discreto & $X\sim U(n)$          & $\dfrac{1}{n} I_{\{1,\dots,n\}}(i)$                              & $\dfrac{\floor{x}}{n}$                                                                                                & $\dfrac{n+1}{2}$    & $\dfrac{n^2-1}{12}$   \\[2ex]
+		\bfseries Uniforme discreto & $X\sim U(n)$          & $\dfrac{1}{n} I_{\{1,\dots,n\}}(i)$                              & $\dfrac{\floor{x}}{n}\cdot I_{\{1,\dots,n\}}+I_{\{n,\dots,+\infty\}}$                                                 & $\dfrac{n+1}{2}$    & $\dfrac{n^2-1}{12}$   \\[2ex]
 		\bfseries Geometrico        & $X\sim G(p)$          & $(1-p)^ip ~ I_\N (i)$                                            & $1 - (1-p)^{\floor{x}+1}  $                                                                                           & $ \dfrac{1-p}{p}$   & $\dfrac{1-p}{p^2}$    \\[1ex]
-		\bfseries Poisson           & $X\sim P(\lambda)$    & $e^{-\lambda}\frac{\lambda^i}{i!} ~ I_\N(i)$                     & $\dots$                                                                                                               & $\lambda$           & $\lambda$             \\[2ex]
-		\bfseries Ipergeometrico    & $X\sim ?(N,M,n)$      & $\dfrac{\binom{N}{i}\binom{M}{n-i}}{\binom{N+M}{n}}$             & $\dots$                                                                                                               & $np$                & $\dfrac{NM}{(N+M)^2}$ \\[2ex]
-		\bfseries Uniforme continuo & $X\sim U([a,b])$      & $\dfrac{1}{b-a} I[a,b](x)$                                       & $ \dfrac{x-a}{b-a}$                                                                                                   & $\dfrac{b+a}{2}$    & $\dfrac{(b-a)^2}{12}$ \\[3ex]
+		\bfseries Poisson           & $X\sim P(\lambda)$    & $e^{-\lambda}\frac{\lambda^i}{i!} ~ I_\N(i)$                     & [non visto]                                                                                                           & $\lambda$           & $\lambda$             \\[2ex]
+		\bfseries Ipergeometrico    & $X\sim ?(N,M,n)$      & $\dfrac{\binom{N}{i}\binom{M}{n-i}}{\binom{N+M}{n}}$             & [non visto]                                                                                                           & $np$                & $\dfrac{NM}{(N+M)^2}$ \\[2ex]
+		\bfseries Uniforme continuo & $X\sim U([a,b])$      & $\dfrac{1}{b-a} I[a,b](x)$                                       & $ \dfrac{x-a}{b-a}\cdot I_{[a,b]}(x)+I_{(b,+\infty)}(x)$                                                              & $\dfrac{b+a}{2}$    & $\dfrac{(b-a)^2}{12}$ \\[3ex]
 		\bfseries Esponenziale      & $X\sim E(\lambda)$    & $\lambda e^{-\lambda x} I_{\R^+}(x)$                             & $1-e^{-\lambda x}$                                                                                                    & $\frac{1}{\lambda}$ & $\frac{1}{\lambda^2}$ \\[1ex]
 		\bfseries Gaussiano         & $X\sim N(\mu,\sigma)$ & $\dfrac{1}{\sqrt{2\pi}~\sigma}e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}$ & $\displaystyle\int_{-\infty}^x \dfrac{1}{\sqrt{2\pi}~\sigma} e^{-\frac{1}{2}\left(\dfrac{y-\mu}{\sigma}\right)^2} dy$ & $\mu$               & $\sigma^2$            \\
 		\bottomrule
@@ -314,7 +316,8 @@ Ergo
 	        & = \lambda
 \end{align}
 
-Il modello di Poisson è strettamente legato al modello binomiale. Infatti:
+\subsubsection{Approssimazione del modello binomiale} \label{subsub:binompois}
+Il modello di Poisson è strettamente legato al modello binomiale. Infatti, se il prodotto dei parametri di una binomiale è costante, per $n$ grandi essa è ben approssimata da una variabile di Poisson che ha come parametro tale prodotto:
 \begin{equation*}
 	X\sim B(n, p)\qquad\text{con }np=\lambda
 \end{equation*}
@@ -604,9 +607,9 @@ Da cui
 \end{proof}
 
 \begin{prop}
-	Siano $X_1,\dots,X_n$ variabili aleatorie indipendenti e sia $Z$ il minimo degli $X_i$, ossia $Z:=\min_i X_i$. Se $X_i\sim E(\lambda_i)$ allora:
+	Siano $X_1,\dots,X_n$ variabili aleatorie indipendenti e sia $Z$ il minimo degli $X_i$, ossia $Z:=\min_i X_i$. Se $X_i\sim E(\lambda_i)$ per ogni $i$, allora:
 	\begin{equation*}
-		\dots
+		Z\sim E\left(\sum_{i=1}^n \lambda_i\right)
 	\end{equation*}
 \end{prop}
 \begin{proof}
@@ -708,7 +711,7 @@ Si verificano i seguenti risultati
 \end{align*}
 Ergo
 \begin{equation*}
-	X\sim G(\mu,\sigma) \Rightarrow Z\sim G(0,1)
+	X\sim N(\mu,\sigma) \Rightarrow Z\sim N(0,1)
 \end{equation*}
 
 Le variabili normali standard si indicano solitamente con $Z$, mentre le relative funzioni di densità e di ripartizione di indicano rispettivamente con $\phi(z)$ e $\Phi(z)$.
@@ -716,15 +719,16 @@ Le variabili normali standard si indicano solitamente con $Z$, mentre le relativ
 
 \subsubsection{Risultati notevoli}
 
-\paragraph{Trasformazioni lineari} Trasformando linearmente la variabile aleatoria $X\sim G(\mu,\sigma)$, per le proprietà della deviazione standard e del valore atteso, si ottiene una variabile aleatoria gaussiana $Y$:
+\paragraph{Trasformazioni lineari} Trasformando linearmente la variabile aleatoria $X\sim N(\mu,\sigma)$, si ottiene una variabile aleatoria gaussiana $Y$:
 \begin{equation*}
-	X\sim G(\mu,\sigma) \Rightarrow Y\sim G(a\mu+b,\sqrt{a^2\sigma^2})
+	X\sim N(\mu,\sigma) \Rightarrow Y\sim N(a\mu+b,a\sigma)
 \end{equation*}
 
-\paragraph{Somme di gaussiane} Date variabili $X_1,\dots,X_n$ gaussiane indipendenti tali che $\forall i X_i\sim G(\mu_i,\sigma_i)$:
+\paragraph{Riproducibilità} Date variabili $X_1,\dots,X_n$ gaussiane indipendenti tali che $\forall i X_i\sim N(\mu_i,\sigma_i)$:
 \begin{equation*}
-	Y\sim G\left(\sum_{i=1}^n \mu_i,\sqrt{\sum_{i=1}^n \sigma_i^2}\right)
+	Y\sim N\left(\sum_{i=1}^n \mu_i,\sqrt{\sum_{i=1}^n \sigma_i^2}\right)
 \end{equation*}
+Anche il modello binomiale e l'ipergeometrico, ad esempio, godono della proprietà di riproducibilità.
 
 \paragraph{Funzione di ripartizione normale e standard} è possibile ricavare la funzione di ripartizione di una variabile aleatoria gaussiana qualsiasi conoscendo la funzione di ripartizione di una variabile standard:
 \begin{align*}
@@ -747,6 +751,7 @@ Le variabili normali standard si indicano solitamente con $Z$, mentre le relativ
 	Data una variabile aleatoria $X$, la moda di $X$ è la specificazione di densità (o massa di probabilità) massima.
 \end{defin}
 
+% TODO: questa definizione va sistemata: una specificazione come quella descritta non è unica: come ci si comporta?
 \begin{defin}
 	Data una variabile aleatoria $X$, il quantile di livello $q\in[0,1]$ di $X$ è la specificazione $x_q\in\R$ tale che $P(X\leq x_q) = q$.
 \end{defin}

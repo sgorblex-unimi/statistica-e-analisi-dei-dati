@@ -100,7 +100,7 @@ Per definizione, se $T$ è uno stimatore non deviato per $\tau(\theta)$ allora $
 \subsection{Legge dei grandi numeri}
 \begin{teor}[legge dei grandi numeri forte]
 	\begin{equation*}
-		P\left(\lim_{n\to+\infty}\bar X_n = \mu\right) = 1
+		\lim_{n\to+\infty} P\left(\bar X_n = \mu\right) = 1
 	\end{equation*}
 \end{teor}
 
@@ -161,40 +161,58 @@ Un'alternativa a questo tipo di stima si può fare applicando la disuguaglianza 
 \end{gather*}
 
 
+% TODO: tutta la sezione sul processo di Poisson va rivista.
+% TODO: definizione di processo stocastico
 \subsection{Processo di Poisson}
-% TODO: intro
-Sia $t$ una variabile temporale e $N(t)$ il numero di eventi (variabile aleatoria) che avvengono nell'intervallo di tempo $[0,t)$.
+Il processo di Poisson dimostra che sotto certe ipotesi il problema del numero di eventi che avvengono in un certo intervallo di tempo è descritto da un modello di Poisson.
 
-Al variare di $t$ si definisce una famiglia di variabili aleatorie secondo processi stocastici.
+\begin{teor}
+	Sia $t$ una variabile temporale e $N(t)$ la variabile aleatoria che esprime il numero di eventi che avvengono nell'intervallo di tempo $[0,t)$. Verificate le seguenti ipotesi:
+	\begin{enumerate}
+		\item $N(0)=0$;
+		\item istanze di $N$ sono indipendenti per intervalli disgiunti;
+		      % TODO: spiegare la versione approssimata dell'ipotesi 3
+		\item $\displaystyle\lim_{h\to0}\frac{P(N(h)=1)}{h}=\lambda$;
+		\item $\displaystyle\lim_{h\to0}\frac{P(N(h)\geq 2)}{h}=0$.
+	\end{enumerate}
+	allora $N(t)$ è distribuita secondo il modello di Poisson con parametro $\lambda t$:
+	\begin{equation*}
+		N(t)\sim P(\lambda t)
+	\end{equation*}
+\end{teor}
 
-Il processo di Poisson parte dalle seguenti ipotesi:
-\begin{enumerate}
-	\item $N(0)=0$;
-	\item istanze di $N$ sono indipendenti per intervalli disgiunti;
-	\item $\displaystyle\lim_{h\to0}\frac{P(N(h)=1)}{h}=\lambda$;
-	\item $\displaystyle\lim_{h\to0}\frac{P(N(h)\geq 2)}{h}=0$;
-\end{enumerate}
-In un contesto in cui valgono le ipotesi la variabile $N(t)$ è distribuita secondo il modello di Poisson con parametro $\lambda t$:
-\begin{equation*}
-	N(t)\sim P(\lambda t)
-\end{equation*}
+\begin{proof}
+	Volendo calcolare la massa di probabilità $P(N(t)=k)$, si sceglie $n\in\N$ e si divide l'intervallo $[0,t)$ in $n$ parti uguali $[\frac{m}{n}t,\frac{m+1}{n}t)$. Potendo scegliere $n$ grande a piacere si può scegliere in particolare $n>k$.
 
-% TODO: sistemare lingua
-Ipotizzato $N(t)=k\in\N$ e scelto un $n\in\N$, si divide l'intervallo $[0,t)$ in $n$ parti uguali $[\frac{m}{n}t,\frac{m+1}{n}t)$. Potendo scegliere $n$ grande a piacere si può scegliere in particolare $n>k$. Chiamato con $A$ l'evento che corrisponde a ognuno dei $k$ eventi avviene in un intervallo diverso e $B$ il suo complementare, se si verifica $B$ esiste un intervallo tale che due eventi avvengono in esso.
+	L'evento $N(t)=k$, di cui si vuole calcolare la probabilità, è esprimibile come l'unione disgiunta di due eventi:
+	\begin{itemize}
+		\item $A$: ognuno dei $k$ eventi avviene in un intervallo diverso, ossia: ogni intervallo contiene al più un evento, per un totale di $k$ eventi;
+		\item $B$: esiste almeno un intervallo che contiene due eventi, per un totale di $k$ eventi.
+	\end{itemize}
 
-Poiché per l'ipotesi 4 la probabilità di un tale evento per uno specifico intervallo è tendente a $0$ ($n$ grande a piacere) e per l'ipotesi 2 la probabilità di un tale evento in qualunque intervallo è calcolabile come il prodotto delle singole, la probabilità complessiva è il prodotto di fattori nulli ed è pertanto uguale a $0$.
+	Ricordando che $n$ è grande a piacere, per l'ipotesi 4 la probabilità che uno specifico intervallo contenga due eventi tende a $0$. Inoltre, per l'ipotesi 2 la probabilità dell'evento $B$ è calcolabile come il prodotto delle singole. La probabilità complessiva è quindi il prodotto di fattori tendenti a $0$ ed è pertanto tendente a $0$ per $n\to+\infty$. Si ha quindi:
+	\begin{equation*}
+		P(N(t)=k)=P(A)
+	\end{equation*}
 
-La probabilità che ogni intervallo contenga esattamente un evento, per l'ipotesi 3 è tendente a
-\begin{align*}
-	P(N(t) = k) & = P(A)                                                                                 \\
-	            & = \binom{n}{k}\left(\lambda\frac{t}{n}\right)^k\left(1-\lambda\frac{t}{n}\right)^{n-k} \\
-	            & \sim B\left(n,\frac{\lambda t}{n}\right)
-\end{align*}
-Poiché il prodotto dei parametri della binomiale trovata è costante, la distribuzione è ben descritta da un modello di Poisson di parametro $\lambda t$:
-\begin{equation*}
-	N(t)\sim P(\lambda t)
-\end{equation*}
-Da cui
-\begin{equation*}
-	P(N(t)=k) = e^{-\lambda t}\frac{\dots}{\dots}\dots
-\end{equation*}
+	Siano $B_i$ le variabili aleatorie bernoulliane che descrivono l'esistenza o meno di un evento nell'$i$-esimo intervallo. Per l'ipotesi 3 si ha, per $n\to+\infty$:
+	\begin{equation*}
+		B_i \sim B\left(\lambda\frac{t}{n}\right)
+	\end{equation*}
+	Si noti inoltre che l'evento $A$ corrisponde a una particolare specificazione della variabile aleatoria binomiale $B'$ che descrive il numero di eventi complessivi in $n$ intervalli, ossia la somma dei $B_i$:
+	\begin{equation*}
+		B'\sim B\left(n, \lambda\frac{t}{n}\right)
+	\end{equation*}
+
+	Ma allora:
+	\begin{gather*}
+		P(N(t)=k) = P(A) = P(B'=k) \\
+		N(t) = B'
+	\end{gather*}
+
+	Poiché il prodotto dei parametri della binomiale trovata è costante, ed essendo $n\to+\infty$, per quanto visto al paragrafo \ref{subsub:binompois} la distribuzione è ben descritta da un modello di Poisson di parametro $\lambda t$:
+	\begin{equation*}
+		N(t) \sim P(\lambda t)
+	\end{equation*}
+	% TODO: esponenziale per il tempo trascorso da un evento all'altro
+\end{proof}

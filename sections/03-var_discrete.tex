@@ -141,7 +141,7 @@ In generale, non è detto che la sommatoria che definisce il valore atteso conve
 \begin{prop} \label{prop:varalt}
 	La varianza di $X$ può essere espressa equivalentemente come la differenza tra il valore atteso del quadrato di $X$ e il valore atteso al quadrato di $X$:
 	\begin{equation} \label{eq:varalt}
-		\var(X) = \ev{x^2}- \ev{x}^2
+		\var(X) = \ev{X^2}- \ev{X}^2
 	\end{equation}
 \end{prop}
 \begin{proof}
@@ -511,7 +511,7 @@ Generalizzando:
 \end{prop}
 \begin{proof}
 	\begin{align*}
-		\cov(X,Y) & = \ev{X,Y} - \ev{X}\ev{Y} \\
+		\cov(X,Y) & = \ev{XY} - \ev{X}\ev{Y}  \\
 		          & = P(XY=1)-P(X=1)P(Y=1)    \\
 		          & = P(X=1,Y=1)-P(X=1)P(Y=1) \\
 	\end{align*}
@@ -528,6 +528,6 @@ Generalizzando:
 \begin{defin}
 	Il coefficiente di correlazione $\rho$ è un indice di correlazione tra variabili aleatorie discrete ed è così definito:
 	\begin{equation*}
-		\rho= \frac{\cov(X,Y)}{\sigma x\sigma y}
+		\rho= \frac{\cov(X,Y)}{\sigma_X\sigma_Y}
 	\end{equation*}
 \end{defin}
