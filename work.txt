@@ -1,0 +1,13 @@
+The LPPL requires that distributions of the Work contain all the files of the Work.
+This work consists of the following files (one per line):
+
+impostazioni-prob.sty
+probabilita.tex
+00-beginning.tex
+01-definizioni.tex
+02-prob_condizionata.tex
+03-var_discrete.tex
+04-var_continue.tex
+05-modelli.tex
+06-inferenziale.tex
+work.txt
