@@ -657,7 +657,7 @@ Da cui
 	\begin{align*}
 		F_Y(x) & =                                  \\
 		       & = P(Y \leq x)                      \\
-		       & = P(xC \leq x)                     \\
+		       & = P(Xc \leq x)                     \\
 		       & = P\left(X \leq \frac{x}{c}\right) \\
 		       & = F_X\left(\frac{x}{c}\right)      \\
 		       & = 1 - e^{-\frac{\lambda}{c} x}     \\
@@ -790,6 +790,13 @@ Anche il modello binomiale e l'ipergeometrico, ad esempio, godono della propriet
 	\end{equation*}
 \end{teor}
 
+Per il teorema centrale del limite, variabili aleatorie bernoulliane di parametri alti possono essere approssimate con il modello normale:
+\begin{gather*}
+	X\sim B(n,p) \\
+	X = \sum_{i=1}^n X_i \modsim N(np, \sqrt{np(1-p)}) \\
+	\frac{x-np}{\sqrt{np(1-p)})} \modsim N(0,1)
+\end{gather*}
+
 \subsubsection{Funzione cumulativa empirica}
 La funzione cumulativa empirica dà una misura del numero di osservazioni che superano un dato input:
 \begin{equation*}
@@ -797,10 +804,3 @@ La funzione cumulativa empirica dà una misura del numero di osservazioni che su
 \end{equation*}
 % TODO: check
 Fatta una selezione di osservazioni sul campione, a patto che tale selezione sia coerente con la funzione di densità/massa, la funzione cumulativa empirica è un'approssimazione tanto più buona della funzione di ripartizione della selezione quanto grande è la selezione sul campione.
-
-Per il teorema centrale del limite, variabili aleatorie bernoulliane di parametri alti possono essere approssimate con il modello normale:
-\begin{gather*}
-	X\sim B(n,p) \\
-	X = \sum_{i=1}^n X_i \modsim N(np, \sqrt{np(1-p)}) \\
-	\frac{x-np}{\sqrt{np(1-p)})} \modsim N(0,1)
-\end{gather*}
