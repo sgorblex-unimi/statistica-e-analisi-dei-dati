@@ -512,7 +512,8 @@ La funzione di densità rispetta la definizione, infatti:
 
 
 \subsubsection{Funzione di ripartizione}
-Applicando la definizione di funzione di ripartizione continua:
+
+di funzione di ripartizione continua:
 \begin{align*}
 	F_X(x) & = \int_0^x f_X(y)dy                                  \\
 	       & = \int_0^x \lambda e^{\lambda y}dy                   \\
@@ -534,7 +535,7 @@ Applicando la definizione:
 	       & = \int_0^{+\infty} x\lambda e^{-\lambda x}dx                                               \\
 	       & = \eval{-x e^{-\lambda x}}{0}{+\infty} + \int_0^{+\infty} e^{-\lambda x} dx \bc{per parti} \\
 	       & = \int_0^{+\infty} e^{-\lambda x} dx                                                       \\
-	       & = \frac{1}{\lambda} \underbrace{\int_0^{+\infty} \lambda e^{-\lambda x}}_{1}               \\
+	       & = \frac{1}{\lambda} \underbrace{\int_0^{+\infty} \lambda e^{-\lambda x} dx}_{1}               \\
 	       & = \frac{1}{\lambda} \bc{proprietà di $f_X$}
 \end{align*}
 
