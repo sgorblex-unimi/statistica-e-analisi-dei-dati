@@ -26,7 +26,7 @@ La definizione assiomatica della probabilità riassume in pochi punti quei conce
 
 \end{defin}
 \begin{defin}
-	Sia $\A\in2^\Omega$ una collezione di sottoinsiemi di $\Omega$. Allora $\A$ è un'algebra se
+	Sia $\A\subseteq2^\Omega$ una collezione di sottoinsiemi di $\Omega$. Allora $\A$ è un'algebra se
 	\begin{align*}
 		 & \bullet ~ \Omega\in \A                                                                                            \\
 		 & \bullet ~ \forall E\subseteq\Omega\qquad E\in\A\Rightarrow \bar E\in\A \qquad\text{con }\bar E:=\Omega\setminus E \\
@@ -48,7 +48,7 @@ I seguenti assiomi, detti di Kolmogorov, decretano le proprietà che la probabil
 
 
 \subsubsection{Primo assioma}
-L'immagine di $P$ è l'insieme $[0,1]\in\R$. Equivalentemente, la probabilità di qualunque evento è compresa tra $0$ e $1$:
+L'immagine di $P$ è contenuta nell'insieme $[0,1]\in\R$. Equivalentemente, la probabilità di qualunque evento è compresa tra $0$ e $1$:
 \begin{equation*}
 	\forall E\in\A\qquad 0\leq P(E)\leq 1
 \end{equation*}
